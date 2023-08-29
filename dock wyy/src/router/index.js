@@ -4,7 +4,7 @@ const router =createRouter({
     routes:[
         {
             path: '/',
-            redirect: '/home'
+            redirect: {path:'/Globallayout'}
         },
         {
             path: '/Globallayout',
