@@ -1,6 +1,7 @@
 <script setup>
 import Icon from "/src/view/Globallayout/components/headTop/components/TItle.vue";
 import BackorGo from "/src/view/Globallayout/components/headTop/components/BackorGo.vue";
+import Search from "/src/view/Globallayout/components/headTop/components/search.vue";
 import { ref } from 'vue'
 
 
@@ -10,6 +11,7 @@ import { ref } from 'vue'
 <div class="headTop_container">
   <Icon/>
   <BackorGo/>
+  <Search/>
 </div>
 </template>
 
