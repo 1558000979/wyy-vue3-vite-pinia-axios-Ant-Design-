@@ -1,16 +1,52 @@
+
+
+<template>
+<div class="search_container">
+  <img src="src/assets/headTop/search.png">
+  <input v-model="SearchValue" @keydown.enter="search" @focus="onclickopen" @blur="onclickclosed" type="text" :placeholder=currentHotName  maxlength="18">
+  <Hotlcard ref="Rollcall"/>
+</div>
+</template>
 <script setup>
-import {gethotlist}from '/src/request/api/headtop/index.js'
+import {gethotlist,getsearch,getsearchsuggest}from '/src/request/api/headtop/index.js'
 import Hotlcard from "/src/view/Globallayout/components/headTop/components/hotlcard.vue";
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import {useSearchHistory}from '/src/stores/searchhisstory.js'
+const usehisstory = useSearchHistory()
+const SearchValue = ref();
 let currentIndex = ref(0); // 当前索引
 let intervalId; // 用于存储 setInterval 的 ID
 const hotname = ref('初始值');
- function hotlist(){
-   gethotlist().then(res=>{
-    hotname.value = res.data.data.map(item=>item.searchWord)
-   })
-}
+const Rollcall = ref(null)  //子组件ref初始化
 
+// 获取热搜列表
+function hotlist(){
+  gethotlist().then(res=>{
+    hotname.value = res.data.data.map(item=>item.searchWord)
+  })
+}
+// 搜索
+function search(){
+  // 搜索记录添加进pinia储存
+  usehisstory.UsageRecord.push(SearchValue.value)
+  let value ={
+    keywords:SearchValue.value
+  }
+  getsearch(value).then(res=>{
+    console.log(res,'res')
+  })
+  getsearchsuggest(value).then(res=>{
+    console.log(res,'搜索建议')
+  })
+}
+// 开启与关闭热搜弹窗卡片
+function onclickopen(){
+  Rollcall.value.open()
+}
+function onclickclosed(){
+  Rollcall.value.closed()
+}
+// 动态更换输入框预选值
 function startInterval() {
   intervalId = setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % hotname.value.length;
@@ -30,19 +66,8 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(intervalId);
 });
-function onclickhotlist(){
-  this.$refs.Rollcall.open()
-}
+
 </script>
-
-<template>
-<div class="search_container">
-  <img src="src/assets/headTop/search.png">
-  <input @click="onclickhotlist"  type="text" :placeholder=currentHotName  maxlength="18">
-  <Hotlcard ref="Rollcall"/>
-</div>
-</template>
-
 <style scoped lang="less">
 .search_container{
   display: flex;

@@ -1,24 +1,58 @@
 <script setup>
-import {ref} from "vue";
-
+import {ref, watch,onMounted} from "vue";
+import Hotlrank from "/src/view/Globallayout/components/headTop/components/hotrank.vue";
+import {useSearchHistory}from '/src/stores/searchhisstory.js'
+const usehisstory = useSearchHistory()
+const  usehisstorylist = ref()
+const  look = ref(true)
+// 监听搜索记录同步更新搜索历史
+watch(usehisstory,(newVal)=>{
+  usehisstorylist.value = newVal.UsageRecord.slice(-8)
+})
 const show = ref(false)
-// const hotCard = defineProps({
-//   show:{
-//     type:Boolean,
-//     default:true,
-//     required:true
-//   }
-// })
 function open(){
   show.value = true
 }
 function closed(){
   show.value = false
 }
+// 查看全部
+function lookAll(){
+  usehisstorylist.value =  usehisstory.UsageRecord
+  look.value = false
+}
+// 删除全部的搜索历史
+function delAll(){
+  usehisstory.$reset()
+}
+onMounted(() => {
+  usehisstorylist.value =  usehisstory.UsageRecord.slice(0, 8); // 截取数组的前八个元素
+});
+defineExpose({
+  open,
+  closed,
+});
 </script>
 
 <template>
-<div v-if="show" class="hotlist_container"></div>
+<!-- -->
+<div  v-if="show" class="hotlist_container">
+<!-- 搜索历史-->
+  <div class="top">
+    <div class="top_left">
+      <span>搜索历史</span>
+      <img @click="delAll" src="/src/assets/headTop/del.png" alt="">
+    </div>
+    <div class="top_right" v-if="look">
+      <span @click="lookAll">查看全部</span>
+    </div>
+  </div>
+<div class="history_container">
+  <div v-for="(item,index) in usehisstorylist" :key="index" class="alone">{{ item }}</div>
+</div>
+<!--热搜榜-->
+  <Hotlrank/>
+</div>
 </template>
 
 <style scoped lang="less">
@@ -28,7 +62,81 @@ function closed(){
   left: -62%;
   width: 21vw;
   height: 61vh;
+
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 1);
+  overflow-y: scroll;
+  .top{
+    display: flex;
+    justify-content: space-between;
+    padding: 1vw;
+    font-size: 14px;
+    .top_left{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      img{
+        width: 15px;
+        height: 15px;
+        margin-left: .5vw;
+        cursor: pointer;
+      }
+    }
+    .top_right{
+      span{
+        cursor: pointer;
+      }
+    }
+  }
+  .history_container{
+    display: flex;
+    justify-content: space-between;
+   flex-wrap: wrap;
+    margin-top: 20px;
+    .alone{
+      padding: 7px 20px;
+      border: 1px solid #ececec;
+      border-radius: 20px;
+      margin-bottom: 5px;
+    }
+  }
+}
+@media (max-width:723px ) {
+  .hotlist_container{
+    position: absolute;
+    top: 130%;
+    left: -27%;
+    width: 68vw;
+    height: 39vh;
+    padding: 1vw;
+    background-color: #fff;
+    box-shadow: 0 0 18px #000000;
+    overflow-y: scroll;
+  }
+}
+/* WebKit浏览器（Chrome、Safari） */
+.hotlist_container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.hotlist_container::-webkit-scrollbar-track {
+  background: linear-gradient(to bottom, #f6d365, #fda085);
+}
+
+.hotlist_container::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.hotlist_container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Firefox浏览器 */
+html {
+  scrollbar-width: thin;
+}
+
+html {
+  scrollbar-color: linear-gradient(to bottom, #f6d365, #fda085) #888;
 }
 </style>

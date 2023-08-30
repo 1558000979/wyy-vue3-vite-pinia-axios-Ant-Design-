@@ -6,3 +6,19 @@ export function gethotlist() {
         method: 'get',
     });
 }
+// 搜索
+export function getsearch(params) {
+    return axios({
+        url: '/search',
+        method: 'get',
+        params
+    });
+}
+//搜索建议
+export function getsearchsuggest(params) {
+    return axios({
+        url: '/search/suggest',
+        method: 'get',
+        params
+    });
+}
