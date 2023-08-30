@@ -22,5 +22,6 @@ import { ref } from 'vue'
   padding: 3vh 2vw;
   background-color: #f5f5f5;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
 }
 </style>
