@@ -4,21 +4,28 @@
 <div class="search_container">
   <img src="src/assets/headTop/search.png">
   <input v-model="SearchValue" @keydown.enter="search" @focus="onclickopen" @blur="onclickclosed" type="text" :placeholder=currentHotName  maxlength="18">
-  <Hotlcard ref="Rollcall"/>
+  <Hotlcard :hasmore="hasUse" :value="SearchValue" ref="Rollcall"/>
 </div>
 </template>
 <script setup>
 import {gethotlist,getsearch,getsearchsuggest}from '/src/request/api/headtop/index.js'
 import Hotlcard from "/src/view/Globallayout/components/headTop/components/hotlcard.vue";
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import {ref, computed, onMounted, onUnmounted, watch} from 'vue';
 import {useSearchHistory}from '/src/stores/searchhisstory.js'
 const usehisstory = useSearchHistory()
-const SearchValue = ref();
+const SearchValue = ref(null);
 let currentIndex = ref(0); // 当前索引
 let intervalId; // 用于存储 setInterval 的 ID
 const hotname = ref('初始值');
 const Rollcall = ref(null)  //子组件ref初始化
-
+const hasUse = ref()
+watch(SearchValue,(newVal)=>{
+  if (newVal!==null) {
+    hasUse.value = false
+  }else{
+    hasUse.value = true
+  }
+})
 // 获取热搜列表
 function hotlist(){
   gethotlist().then(res=>{

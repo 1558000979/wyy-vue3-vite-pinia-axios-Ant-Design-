@@ -1,14 +1,27 @@
 <script setup>
 import {ref, watch,onMounted} from "vue";
 import Hotlrank from "/src/view/Globallayout/components/headTop/components/hotrank.vue";
+import Searchsuggest from "/src/view/Globallayout/components/headTop/components/searchsuggest.vue";
 import {useSearchHistory}from '/src/stores/searchhisstory.js'
+const props = defineProps({
+  value:{
+    type:String
+  },
+  hasmore:{
+    type:Boolean,
+    default:true
+  }
+})
+const propsvalue = ref(props.value)
 const usehisstory = useSearchHistory()
 const  usehisstorylist = ref()
 const  look = ref(true)
 // 监听搜索记录同步更新搜索历史
-watch(usehisstory,(newVal)=>{
-  usehisstorylist.value = newVal.UsageRecord.slice(-8)
+watch([usehisstory,propsvalue],([newVal1,newVal2])=>{
+  usehisstorylist.value = newVal1.UsageRecord.slice(-8)
+  console.log(newVal2,'newVal2')
 })
+
 const show = ref(false)
 function open(){
   show.value = true
@@ -36,7 +49,8 @@ defineExpose({
 
 <template>
 <!-- -->
-<div  v-if="show" class="hotlist_container">
+<div v-if="show"  class="hotlist_container">
+  <div v-if="props.hasmore">
 <!-- 搜索历史-->
   <div class="top">
     <div class="top_left">
@@ -52,6 +66,10 @@ defineExpose({
 </div>
 <!--热搜榜-->
   <Hotlrank/>
+  </div>
+  <div v-if="!props.hasmore">
+    <Searchsuggest :keyword="props.value"/>
+  </div>
 </div>
 </template>
 
@@ -93,6 +111,7 @@ defineExpose({
     justify-content: space-between;
    flex-wrap: wrap;
     margin-top: 20px;
+    margin:0 1vw;
     .alone{
       padding: 7px 20px;
       border: 1px solid #ececec;
