@@ -44,6 +44,7 @@ function hotlist(){
     display: flex;
     align-items: center;
     margin-top: 20px;
+    cursor: pointer;
     .rank{
      color: red;
       margin-right: 30px;

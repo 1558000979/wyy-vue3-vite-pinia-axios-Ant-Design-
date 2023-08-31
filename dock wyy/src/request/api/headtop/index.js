@@ -22,3 +22,10 @@ export function getsearchsuggest(params) {
         params
     });
 }
+// 默认搜索关键字
+export function getsearchdefault() {
+    return axios({
+        url: '/search/default',
+        method: 'get',
+    });
+}

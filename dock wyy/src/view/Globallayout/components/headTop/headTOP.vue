@@ -2,8 +2,7 @@
 import Icon from "/src/view/Globallayout/components/headTop/components/TItle.vue";
 import BackorGo from "/src/view/Globallayout/components/headTop/components/BackorGo.vue";
 import Search from "/src/view/Globallayout/components/headTop/components/search.vue";
-import { ref } from 'vue'
-
+import Avatar from "/src/view/Globallayout/components/headTop/components/avatar/avatar.vue" 
 
 </script>
 
@@ -12,6 +11,7 @@ import { ref } from 'vue'
   <Icon/>
   <BackorGo/>
   <Search/>
+  <Avatar/>
 </div>
 </template>
 

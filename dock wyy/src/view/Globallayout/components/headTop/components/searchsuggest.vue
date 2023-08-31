@@ -30,11 +30,10 @@ const props = defineProps({
     type:String
   }
 })
-const keywords = ref(props.keyword)
-watch(keywords,(newVal)=>{
-  console.log(newVal,'newVal')
+
+watch(props,(newVal)=>{
   let val = {
-    keywords: newVal
+    keywords: newVal.keyword
   }
   getsearchsuggest(val).then(res => {
     songs.value = res.data.result?.songs
@@ -49,7 +48,7 @@ const albums = ref()
 const Songlists = ref()
 onMounted(() => {
   let val = {
-    keywords: keywords.value
+    keywords: props.keyword
   }
   getsearchsuggest(val).then(res => {
     songs.value = res.data.result?.songs
@@ -57,7 +56,6 @@ onMounted(() => {
     albums.value = res.data.result?.albums
     Songlists.value = res.data.result?.playlists
   })
-  console.log(keywords.value,'keyword')
 })
 
 </script>
@@ -95,6 +93,7 @@ onMounted(() => {
   }
   .suggest_list:hover{
     background-color: #f2f2f2;
+    cursor: pointer;
   }
 }
 </style>
