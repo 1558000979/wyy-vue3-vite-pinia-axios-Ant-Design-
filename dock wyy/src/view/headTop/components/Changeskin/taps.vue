@@ -36,6 +36,7 @@ function onclickItem(event) {
         padding-bottom: 3px;
         font-weight: 600;
         margin-right: 2vw;
+        cursor: pointer;
     }
 
     .active {

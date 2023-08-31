@@ -13,11 +13,12 @@ import HoverCard from '/src/view/headTop/components/Changeskin/hovercard.vue'
 .clothes_container {
     position: relative;
     margin-left: .5vw;
-    cursor: pointer;
+
 
     img {
         width: 30px;
         height: 30px;
+        cursor: pointer;
     }
 }
 </style>
