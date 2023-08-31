@@ -1,6 +1,6 @@
 <template>
     <div class="search_container">
-        <img src="src/assets/headTop/search.png" />
+        <img src="../../../../assets/headTop/search.png" />
         <input v-model="SearchValue" @keydown.enter="search" @focus="onclickopen" @blur="onclickclosed" type="text"
             :placeholder="currentHotName" maxlength="18" />
         <Hotlcard :hasmore="hasUse" :value="SearchValue" ref="Rollcall" />
@@ -12,7 +12,7 @@ import {
     getsearch,
     getsearchsuggest,
 } from '/src/request/api/headtop/index.js';
-import Hotlcard from '/src/view/Globallayout/components/headTop/components/hotlcard.vue';
+import Hotlcard from '/src/view/headTop/components/search/hotlcard/hotlcard.vue';
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useSearchHistory } from '/src/stores/searchhisstory.js';
 const usehisstory = useSearchHistory();

@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import Attention from "/src/view/Globallayout/components/headTop/components/avatar/drowcard/attention.vue";
-import Cardlist from "/src/view/Globallayout/components/headTop/components/avatar/drowcard/card_list.vue";
+import Attention from "/src/view/headTop/components/avatar/drowcard/attention.vue";
+import Cardlist from "/src/view/headTop/components/avatar/drowcard/card_list.vue";
 </script>
 
 <style lang="less" scoped>
@@ -17,8 +17,8 @@ import Cardlist from "/src/view/Globallayout/components/headTop/components/avata
     width: 17vw;
     height: 41vh;
     position: absolute;
-    top: 170%;
-    left: -27%;
+    top: 7vh;
+    left: -2vw;
     background-color: #fff;
     box-shadow: 0 0 18px #999;
     border-radius: 10px;

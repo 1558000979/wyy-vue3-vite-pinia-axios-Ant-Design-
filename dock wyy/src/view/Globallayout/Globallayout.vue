@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import HeadTOP from "./components/headTop/headTOP.vue";
+import HeadTOP from "/src/view/headTop/headTOP.vue";
 
 </script>
 

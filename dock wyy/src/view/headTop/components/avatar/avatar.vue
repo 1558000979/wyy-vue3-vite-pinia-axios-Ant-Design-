@@ -12,8 +12,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import Lv from '/src/view/Globallayout/components/headTop/components/avatar/Lv.vue'
-import DownCard from '/src/view/Globallayout/components/headTop/components/avatar/drowcard/downcard.vue'
+import Lv from '/src/view/headTop/components/avatar/Lv.vue'
+import DownCard from '/src/view/headTop/components/avatar/drowcard/downcard.vue'
 const userLv = ref(1)
 const show = ref(false)
 function contrimOpen() {

@@ -4,8 +4,8 @@
 
 <template>
 <div class="Go_back">
-  <img src="../../../../../assets/headTop/back.png">
-  <img src="src/assets/headTop/go.png">
+  <img src="../../../assets/headTop/back.png">
+  <img src="../../../assets/headTop/go.png">
 </div>
 </template>
 

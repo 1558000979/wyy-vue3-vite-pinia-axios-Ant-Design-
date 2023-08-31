@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import Hotlrank from '/src/view/Globallayout/components/headTop/components/hotrank.vue';
-import Searchsuggest from '/src/view/Globallayout/components/headTop/components/searchsuggest.vue';
+import Hotlrank from '/src/view/headTop/components/search/hotlcard/hotrank.vue';
+import Searchsuggest from '/src/view/headTop/components/search/hotlcard/searchsuggest.vue';
 import { useSearchHistory } from '/src/stores/searchhisstory.js';
 const props = defineProps({
     value: {
@@ -89,8 +89,8 @@ defineExpose({
 <style scoped lang="less">
 .hotlist_container {
     position: absolute;
-    top: 133%;
-    left: -62%;
+    top: 6vh;
+    left: -6vw;
     width: 21vw;
     height: 61vh;
 

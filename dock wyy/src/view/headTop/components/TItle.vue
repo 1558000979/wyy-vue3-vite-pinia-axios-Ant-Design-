@@ -4,7 +4,7 @@
 
 <template>
   <div class="headTop_titlecard">
-    <img src="src/assets/headTop/wyyIcon.png">
+    <img src="../../../assets/headTop/wyyIcon.png">
     <span>网易云音乐</span>
   </div>
 </template>
