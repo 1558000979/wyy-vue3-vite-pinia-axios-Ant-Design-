@@ -1,38 +1,18 @@
 <script setup>
-import { ref, reactive } from 'vue';
-import { menu_List } from "./config";
-import { useGlobalbackground } from "/src/stores/Globalbackground.js";
-const menu = reactive(menu_List)
-const activeTap = ref(null)
-const useColor = useGlobalbackground()
-function onClickMenu(event) {
-    activeTap.value = event
-}
+import Taps from "/src/view/findmusic/components/Taps.vue";
+import Carouselmap from "/src/view/findmusic/components/Carouselmap.vue";
 </script>
 
 <template>
-    <div class="find_menu">
-        <div @click="onClickMenu(index)" :style="{ borderColor: useColor.globalbackground }"
-            :class="{ 'active': activeTap === index }" v-for="(item, index) in menu" :key="index">{{
-                item.name }}</div>
+    <div class="find_container">
+        <Taps />
+        <Carouselmap />
     </div>
 </template>
 
 <style scoped lang="less">
-.find_menu {
+.find_container {
     display: flex;
-
-    div {
-        margin-right: 60px;
-        cursor: pointer;
-    }
-
-    .active {
-        font-size: 18px;
-        font-weight: 900;
-        border-bottom-style: solid;
-        border-width: 3px;
-        padding-bottom: 3px;
-    }
+    flex-direction: column;
 }
 </style>
