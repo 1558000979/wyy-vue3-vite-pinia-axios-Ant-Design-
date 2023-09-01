@@ -25,7 +25,7 @@ function contrimOpen() {
 .avatar_container {
     display: flex;
     align-items: center;
-    margin-left: 40vw;
+    // margin-left: 768px;
     position: relative;
 
     .img_card {
@@ -46,6 +46,7 @@ function contrimOpen() {
         color: #333;
         font-weight: 600;
         margin-left: 10px;
+        color: #fff;
     }
 
     .down {

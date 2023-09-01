@@ -54,7 +54,7 @@ defineExpose({
 </script>
 
 <template>
-    <!-- -->
+    <!--v-if="show" -->
     <div v-if="show" class="hotlist_container">
         <div v-if="props.hasmore">
             <!-- 搜索历史-->
@@ -144,7 +144,7 @@ defineExpose({
     .hotlist_container {
         position: absolute;
         top: 130%;
-        left: -27%;
+        left: -48%;
         width: 68vw;
         height: 39vh;
         padding: 1vw;

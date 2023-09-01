@@ -1,14 +1,17 @@
 <template>
     <div class="hover_card_container">
         <Taps @select="selects" />
-        <Theme />
+        <Theme v-if="Tapsvalue === 1" />
     </div>
 </template>
 
 <script setup>
-import Taps from '/src/view/headTop/components/Changeskin/taps.vue'
-import Theme from '/src/view/headTop/components/Changeskin/Themecontent.vue'
+import { ref } from "vue";
+import Taps from '/src/view/headTop/components/Changeskin/hovercard/taps.vue'
+import Theme from '/src/view/headTop/components/Changeskin/hovercard/Themecontent.vue'
+const Tapsvalue = ref(1)
 function selects(event) {
+    Tapsvalue.value = event
     console.log(event, 'event');
 }
 </script>

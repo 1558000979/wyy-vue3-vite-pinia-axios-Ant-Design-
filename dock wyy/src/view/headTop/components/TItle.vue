@@ -10,19 +10,24 @@
 </template>
 
 <style scoped lang="less">
-.headTop_titlecard{
+.headTop_titlecard {
   display: flex;
   align-items: center;
   font-family: IconName;
-  img{
+  color: #fff;
+  width: 120px;
+
+  img {
     width: 40px;
     height: 40px;
   }
 }
-@media (max-width:723px ) {
-  .headTop_titlecard{
+
+@media (max-width:723px) {
+  .headTop_titlecard {
     font-size: 12px;
-    img{
+
+    img {
       width: 15px;
       height: 15px;
     }

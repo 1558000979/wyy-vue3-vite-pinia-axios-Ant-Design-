@@ -84,8 +84,8 @@ onUnmounted(() => {
     align-items: center;
     font-size: 12px;
     background-color: #ebebeb;
-    width: 10vw;
-    height: 4vh;
+    width: 200px;
+    height: 36px;
     border-radius: 20px;
     padding: 0 20px;
     margin-left: 3vw;

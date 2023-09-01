@@ -1,14 +1,21 @@
 <template>
     <div class="content_container">
-        <div class="color_list" v-for="item in colorlist" :key="item.id" :style="{ backgroundColor: item.color }">
-            <img src="/src/assets/headTop/wyyIcon.png" alt="">
+        <div class="color_list" @click="onclickItem(item.color)" v-for="item in colorlist" :key="item.id"
+            :style="{ backgroundColor: item.color }">
+            <img class="Image" src="/src/assets/headTop/wyyIcon.png" alt="">
             <div class="bottom_name">{{ item.name }}</div>
+            <div class="sure" v-if="activeTab === item.color">
+                <img src="/src/assets/headTop/sureselect.png" alt="">
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
+import { useGlobalbackground } from "/src/stores/Globalbackground.js";
+const useColor = useGlobalbackground()
+const activeTab = ref(null)
 const colorlist = reactive([
     {
         color: '#34373f',
@@ -41,6 +48,13 @@ const colorlist = reactive([
         name: '土豪金'
     },
 ])
+function onclickItem(event) {
+    useColor.globalbackground = event
+    activeTab.value = event
+}
+onMounted(() => {
+    activeTab.value = useColor.globalbackground
+})
 </script>
 
 <style lang="less" scoped>
@@ -60,12 +74,28 @@ const colorlist = reactive([
         cursor: pointer;
         flex-direction: column;
 
-        img {
+        .Image {
             width: 50px;
             height: 50px;
             position: absolute;
             top: 25%;
             left: 20%;
+        }
+
+        .sure {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 72%;
+            right: -5px;
+            border: 4px solid #fff;
+            border-radius: 20px;
+            background-color: #fff;
+
+            img {
+                width: 20px;
+                height: 20px;
+            }
         }
 
         .bottom_name {
@@ -79,7 +109,7 @@ const colorlist = reactive([
             padding-left: 5px;
             position: absolute;
             top: 0%;
-
+            color: #ebebee;
         }
     }
 }
