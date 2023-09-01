@@ -1,11 +1,12 @@
 <script setup>
-
+import { useGlobalbackground } from "/src/stores/Globalbackground.js";
+const useColor = useGlobalbackground()
 </script>
 
 <template>
   <div class="headTop_titlecard">
     <img src="../../../assets/headTop/wyyIcon.png">
-    <span>网易云音乐</span>
+    <span :style="{ color: useColor.globalbackground === '#ffffff' ? '#3d3d3d' : '#ffffff' }">网易云音乐</span>
   </div>
 </template>
 
@@ -15,11 +16,16 @@
   align-items: center;
   font-family: IconName;
   color: #fff;
-  width: 120px;
+  width: 132px;
 
   img {
     width: 40px;
     height: 40px;
+  }
+
+  span {
+    font-weight: 900;
+    font-size: 18px;
   }
 }
 

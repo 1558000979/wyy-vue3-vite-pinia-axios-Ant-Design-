@@ -2,6 +2,7 @@
     <div class="hover_card_container">
         <Taps @select="selects" />
         <Theme v-if="Tapsvalue === 1" />
+        <PureColor v-if="Tapsvalue === 2" />
     </div>
 </template>
 
@@ -9,6 +10,7 @@
 import { ref } from "vue";
 import Taps from '/src/view/headTop/components/Changeskin/hovercard/taps.vue'
 import Theme from '/src/view/headTop/components/Changeskin/hovercard/Themecontent.vue'
+import PureColor from "/src/view/headTop/components/Changeskin/hovercard/pureColor.vue";
 const Tapsvalue = ref(1)
 function selects(event) {
     Tapsvalue.value = event

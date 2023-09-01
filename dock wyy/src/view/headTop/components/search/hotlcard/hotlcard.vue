@@ -61,7 +61,7 @@ defineExpose({
             <div class="top">
                 <div class="top_left">
                     <span>搜索历史</span>
-                    <img @click="delAll" src="/src/assets/headTop/del.png" alt="" />
+                    <img data-not-close-input @click="delAll" src="/src/assets/headTop/del.png" alt="" />
                 </div>
                 <div class="top_right" v-if="look">
                     <span @click="lookAll">查看全部</span>

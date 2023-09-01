@@ -1,6 +1,6 @@
 <template>
     <div>
-    <div class="lvgrade" v-show="props.gradeshow===1">CVIP•壹</div>
+    <div class="lvgrade" :style="{color:useColor.globalbackground ==='#ec4141' ||useColor.globalbackground ==='#fd544e'?'#000':'red'}" v-show="props.gradeshow===1">CVIP•壹</div>
     <div class="lvgrade" v-show="props.gradeshow===2">CVIP•貳</div>
     <div class="lvgrade" v-show="props.gradeshow===3">CVIP•參</div>
     <div class="lvgrade" v-show="props.gradeshow===4">CVIP•肆</div>
@@ -13,17 +13,18 @@
 </template>
 
 <script setup>
+import { useGlobalbackground }from '/src/stores/Globalbackground.js'
 const props = defineProps({
     gradeshow:{
         type:Number
     }
 })
+const useColor = useGlobalbackground()
 </script>
 
 <style lang="less" scoped>
 .lvgrade{
-    font-size: 12px;
-        color: #333;
+         font-size: 12px;
         font-weight: 600;
         margin-left: 10px;
         font-style: italic;

@@ -1,7 +1,7 @@
 <template>
     <div class="search_container">
         <img src="../../../../assets/headTop/search.png" />
-        <input v-model="SearchValue" @keydown.enter="search" @focus="onclickopen" @blur="onclickclosed" type="text"
+        <input data-not-close-input v-model="SearchValue" @keydown.enter="search" @focus="onclickopen" type="text"
             :placeholder="currentHotName" maxlength="18" />
         <Hotlcard :hasmore="hasUse" :value="SearchValue" ref="Rollcall" />
     </div>
@@ -56,6 +56,14 @@ function onclickopen() {
 function onclickclosed() {
     Rollcall.value.closed();
 }
+window.document.body.addEventListener('click', (e) => {
+    const notCloseInput = e.target.dataset.notCloseInput !== undefined
+    if (notCloseInput) {
+        return
+    }
+    onclickclosed()
+})
+
 // 动态更换输入框预选值
 function startInterval() {
     intervalId = setInterval(() => {

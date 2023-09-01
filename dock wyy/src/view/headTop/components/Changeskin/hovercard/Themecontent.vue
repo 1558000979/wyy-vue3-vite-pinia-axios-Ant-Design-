@@ -12,10 +12,16 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, watch } from "vue";
 import { useGlobalbackground } from "/src/stores/Globalbackground.js";
 const useColor = useGlobalbackground()
 const activeTab = ref(null)
+// 监听pinia全局存储颜色   在恢复默认颜色时 取消选择状态
+watch(useColor, (newVal) => {
+    if (newVal.globalbackground === '') {
+        activeTab.value = null
+    }
+})
 const colorlist = reactive([
     {
         color: '#34373f',

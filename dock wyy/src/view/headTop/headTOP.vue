@@ -29,10 +29,8 @@ import ChangeSkin from "/src/view/headTop/components/Changeskin/home.vue"
   align-items: center;
   justify-content: space-between;
   padding: 3vh 2vw;
-  background-color: #f5f5f5;
+  height: 10vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-
-
 }
 
 .left {

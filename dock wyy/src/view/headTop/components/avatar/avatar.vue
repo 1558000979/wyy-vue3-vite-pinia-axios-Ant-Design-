@@ -3,7 +3,7 @@
         <div class="img_card">
             <img src="/src/assets/headTop/touxiang.png" alt="">
         </div>
-        <div>Dream</div>
+        <div :style="{ color: useColor.globalbackground === '#ffffff' ? '#3d3d3d' : '#ffffff' }">Dream</div>
         <Lv :gradeshow="userLv" />
         <img @click="contrimOpen" class="down" src="/src/assets/headTop/down.png" alt="">
         <DownCard v-if="show" />
@@ -14,6 +14,8 @@
 import { ref } from 'vue';
 import Lv from '/src/view/headTop/components/avatar/Lv.vue'
 import DownCard from '/src/view/headTop/components/avatar/drowcard/downcard.vue'
+import { useGlobalbackground } from "/src/stores/Globalbackground.js";
+const useColor = useGlobalbackground()
 const userLv = ref(1)
 const show = ref(false)
 function contrimOpen() {
