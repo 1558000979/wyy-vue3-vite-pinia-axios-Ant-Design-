@@ -21,7 +21,7 @@ function selects(event) {
 <style lang="less" scoped>
 .hover_card_container {
     display: flex;
-    flex-direction: column;
+  flex-direction: column;
     position: absolute;
     top: 6vh;
     left: -10vw;
@@ -30,5 +30,6 @@ function selects(event) {
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 0 18px #666;
+  z-index: 999999;
 }
 </style>

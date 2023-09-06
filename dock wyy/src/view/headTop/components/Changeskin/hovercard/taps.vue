@@ -1,7 +1,8 @@
 <template>
     <div class="Taps_container">
-        <div @click="onclickItem(item.value)" :class="['Taps_item', { 'active': activeTab === item.value }]"
-            v-for="item in Taps" :key="item.value">{{ item.label }}
+        <div @click="onclickItem(item.value)" :style="{ borderColor: useColor.globalbackground }"
+            :class="['Taps_item', { 'active': activeTab === item.value }]" v-for="item in Taps" :key="item.value">{{
+                item.label }}
         </div>
         <div @click="defaultclothens" class="defaults">恢复默认</div>
     </div>

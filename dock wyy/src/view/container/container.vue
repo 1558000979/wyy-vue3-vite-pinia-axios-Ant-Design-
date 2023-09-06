@@ -20,6 +20,7 @@ import Leftmenu from '/src/view/container/components/leftmenu/leftmenu.vue'
     background-color: #FFFFFF;
     width: 85vw;
     padding: 30px;
+    overflow-y: scroll;
   }
 }
 </style>
