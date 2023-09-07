@@ -16,7 +16,7 @@ import { menuTopList, menuBottomList } from "./config.js";
 const router = useRouter()
 const menu = reactive(menuTopList)
 const menu_my = reactive(menuBottomList)
-const activeTap=ref(null)
+const activeTap=ref('/findmusic')
 function jumpRoute(event){
   activeTap.value = event
   router.push({

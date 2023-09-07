@@ -4,7 +4,7 @@ const router =createRouter({
     routes:[
         {
             path: '/',
-            redirect: {path:'/Globallayout'}
+            redirect: {path:'/findmusic'}
         },
         {
             path: '/Globallayout',

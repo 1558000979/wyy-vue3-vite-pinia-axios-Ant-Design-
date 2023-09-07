@@ -15,3 +15,10 @@ export function getPlayList(params) {
         params
     });
 }
+//独家推送
+export function getAlonesend() {
+    return axios({
+        url: '/personalized/privatecontent',
+        method: 'get',
+    });
+}

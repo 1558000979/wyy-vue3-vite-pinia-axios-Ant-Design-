@@ -22,7 +22,7 @@ import Cardlist from "/src/view/headTop/components/avatar/drowcard/card_list.vue
     background-color: #fff;
     box-shadow: 0 0 18px #999;
     border-radius: 10px;
-
+z-index: 1;
 
 }
 </style>

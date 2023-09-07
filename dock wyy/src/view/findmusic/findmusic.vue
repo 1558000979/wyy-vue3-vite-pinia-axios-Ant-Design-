@@ -1,7 +1,8 @@
 <script setup>
 import Taps from "/src/view/findmusic/components/Taps.vue";
 import Carouselmap from "/src/view/findmusic/components/Carouselmap.vue";
-import SongList from "/src/view/findmusic/components/SongList.vue";
+import SongList from "/src/view/findmusic/components/SongList/SongList.vue";
+import AloneSendout from '/src/view/findmusic/components/Exclusivedelivery/Exclusivedelivery.vue'
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import SongList from "/src/view/findmusic/components/SongList.vue";
         <Taps />
         <Carouselmap />
       <SongList/>
+      <AloneSendout/>
     </div>
 </template>
 
