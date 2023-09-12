@@ -1,24 +1,37 @@
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   PlayList: {
     type: Array
   }
 })
+
 import BottomName from "/src/view/findmusic/components/Name.vue";
+
+const listAttr = ref({})
+
+const getElement = (value) => {
+
+  listAttr[value.getAttribute('name')] = [value][0].clientWidth
+  console.log(listAttr)
+}
+
 </script>
 
 <template>
-  <div v-for="item in PlayList" :key="item.id" class="song_container">
+  <div v-for="(item, index) in PlayList" :key="item.id" class="song_container" :ref="getElement" :name="String(index)">
     <div :style="{ backgroundImage: 'url(' + item.picUrl + ')' }" class="song_item">
       <div class="count">
         <img alt="" src="/src/assets/findmusic/count.png">
         <span>{{
-            item.playCount > 100000000 ? (Math.floor(item.playCount / 100000000) + '亿') : (item.playCount > 10000 ? (Math.floor(item.playCount / 10000) + '万') : item.playCount)
-          }}</span>
+          item.playCount > 100000000 ? (Math.floor(item.playCount / 100000000) + '亿') : (item.playCount > 10000 ?
+            (Math.floor(item.playCount / 10000) + '万') : item.playCount)
+        }}</span>
       </div>
       <img alt="" src="/src/assets/findmusic/play.png">
     </div>
-    <BottomName :title="item.name" :widths="12"/>
+    <BottomName :title="item.name" :widths="12" />
   </div>
 </template>
 
