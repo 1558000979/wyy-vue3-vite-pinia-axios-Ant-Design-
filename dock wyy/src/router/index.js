@@ -15,6 +15,7 @@ const router =createRouter({
                     path: '/findmusic',
                     name:'findmusic',
                     component:()=>import('../view/findmusic/findmusic.vue'),
+                    redirect: {path:'/findmusic/findmusics'},
                     children:[
                         {
                             path:'/findmusic/findmusics',
