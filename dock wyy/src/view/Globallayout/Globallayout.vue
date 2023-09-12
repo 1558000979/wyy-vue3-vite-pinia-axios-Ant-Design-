@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import HeadTOP from "/src/view/headTop/headTOP.vue";
 import container from "/src/view/container/container.vue";
 </script>

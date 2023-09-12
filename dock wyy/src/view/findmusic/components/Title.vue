@@ -3,6 +3,10 @@ const props = defineProps({
   title:{
     type:String,
     required:true
+  },
+  show:{
+    type:Boolean,
+    default:true
   }
 })
 </script>
@@ -10,7 +14,7 @@ const props = defineProps({
 <template>
   <div class="Title">
     <div>{{ title }}</div>
-    <img src="src/assets/findmusic/right.png">
+    <img v-if="show" src="/src/assets/findmusic/right.png">
   </div>
 </template>
 
@@ -18,6 +22,7 @@ const props = defineProps({
 .Title{
   display: flex;
   align-items: center;
+  margin-top: 3vh;
   cursor: pointer;
   div:nth-child(1){
     font-size: 18px;

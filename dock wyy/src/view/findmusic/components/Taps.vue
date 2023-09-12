@@ -1,19 +1,26 @@
 <script setup>
-import { ref, reactive } from 'vue';
-import { menu_List } from "../config";
+import {ref, reactive, onMounted} from 'vue';
+import { menu_List } from "./config/config.js";
 import { useGlobalbackground } from "/src/stores/Globalbackground.js";
 const menu = reactive(menu_List)
-const activeTap = ref(0)
+import{useRouter,useRoute} from "vue-router";
+const router = useRouter()
+const  route = useRoute()
+const activeTap = ref(route.name)
 const useColor = useGlobalbackground()
+
 function onClickMenu(event) {
     activeTap.value = event
+  router.push({
+    name:event
+  })
 }
 </script>
 
 <template>
     <div class="find_menu">
-        <div @click="onClickMenu(index)" :style="{ borderColor: useColor.globalbackground }"
-            :class="{ 'active': activeTap === index }" v-for="(item, index) in menu" :key="index">{{
+        <div @click="onClickMenu(item.path)" :style="{ borderColor: useColor.globalbackground }"
+            :class="{ 'active': activeTap === item.path }" v-for="(item, index) in menu" :key="index">{{
                 item.name }}</div>
     </div>
 </template>

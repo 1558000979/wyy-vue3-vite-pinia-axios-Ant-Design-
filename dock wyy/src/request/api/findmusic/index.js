@@ -22,3 +22,10 @@ export function getAlonesend() {
         method: 'get',
     });
 }
+// 推荐Mv
+export function getmvList() {
+    return axios({
+        url: '/personalized/mv',
+        method: 'get',
+    });
+}

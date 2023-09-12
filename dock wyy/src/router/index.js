@@ -14,7 +14,39 @@ const router =createRouter({
                 {
                     path: '/findmusic',
                     name:'findmusic',
-                    component:()=>import('../view/findmusic/findmusic.vue')
+                    component:()=>import('../view/findmusic/findmusic.vue'),
+                    children:[
+                        {
+                            path:'/findmusic/findmusics',
+                            name:'Tapfindmusics',
+                            component:()=>import('../view/findmusic/findmusics/findmusics.vue')
+                        },
+                        {
+                            path:'/findmusic/customization',
+                            name:'customization',
+                            component:()=>import('../view/findmusic/customization/customization.vue')
+                        },
+                        {
+                            path:'/findmusic/playList',
+                            name:'playList',
+                            component:()=>import('../view/findmusic/playList/playList.vue')
+                        },
+                        {
+                            path:'/findmusic/rank',
+                            name:'rank',
+                            component:()=>import('../view/findmusic/rank/rank.vue')
+                        },
+                        {
+                            path:'/findmusic/songer',
+                            name:'songer',
+                            component:()=>import('../view/findmusic/songer/songer.vue')
+                        },
+                        {
+                            path:'/findmusic/latestmusic',
+                            name:'latestmusic',
+                            component:()=>import('../view/findmusic/latestmusic/latestmusic.vue')
+                        },
+                    ]
                 },
                 {
                     path: '/podcast',

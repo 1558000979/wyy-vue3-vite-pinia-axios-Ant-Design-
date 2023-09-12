@@ -1,28 +1,13 @@
-.Title{
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  div:nth-child(1){
-    font-size: 18px;
-    font-weight: 900;
-  }
-  div:nth-child(1):hover{
-    font-size: 20px;
-    font-weight: 900;
-  }
-  img{
-    width: 20px;
-    height: 20px;
-  }
-}
-.play_container{
+.play_container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 2vh;
-  .day_container{
-    margin-bottom: 1vh;
-    .item_day{
+
+  .day_container {
+    margin: 2vh 0 1vh 0;
+
+    .item_day {
       display: flex;
       cursor: pointer;
       width: 12vw;
@@ -34,19 +19,23 @@
       justify-content: center;
       position: relative;
       margin-bottom: 1vh;
-      div:nth-child(1){
+
+      div:nth-child(1) {
         display: none;
       }
-      img:nth-child(2){
+
+      img:nth-child(2) {
         width: 80px;
         height: 80px;
       }
-      img:nth-child(3){
+
+      img:nth-child(3) {
         display: none;
       }
     }
-    .item_day:hover{
-      img:nth-child(3){
+
+    .item_day:hover {
+      img:nth-child(3) {
         display: flex;
         width: 35px;
         height: 35px;
@@ -54,7 +43,8 @@
         bottom: 10px;
         right: 10px;
       }
-      div:nth-child(1){
+
+      div:nth-child(1) {
         background-color: #172b34;
         opacity: 1;
         height: 30px;
@@ -70,13 +60,16 @@
         border-top-right-radius: 10px;
       }
     }
-    span{
+
+    span {
       font-size: 14px;
     }
   }
-  .song_container{
+
+  .song_container {
     margin-bottom: 1vh;
-    .song_item{
+
+    .song_item {
       display: flex;
       cursor: pointer;
       width: 12vw;
@@ -85,26 +78,31 @@
       position: relative;
       margin-bottom: 1vh;
       background-position: center center;
-      .count{
+
+      .count {
         display: flex;
         position: absolute;
         top: 5px;
         right: 10px;
         align-items: center;
+
         img {
           width: 15px;
           height: 15px;
           margin-right: 10px;
         }
-        span{
+
+        span {
           color: #FFFFFF;
         }
       }
-      img:nth-child(2){
+
+      img:nth-child(2) {
         display: none;
       }
     }
-    .name_container{
+
+    .name_container {
       font-size: 14px;
       width: 12vw;
       overflow: hidden;
@@ -112,8 +110,9 @@
     }
 
   }
-  .song_container:hover{
-    img:nth-child(2){
+
+  .song_container:hover {
+    img:nth-child(2) {
       display: flex;
       width: 35px;
       height: 35px;
