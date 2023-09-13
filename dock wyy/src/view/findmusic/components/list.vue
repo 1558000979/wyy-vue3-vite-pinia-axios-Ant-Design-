@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from 'vue'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps({
   PlayList: {
@@ -12,33 +12,61 @@ import BottomName from "/src/view/findmusic/components/Name.vue";
 const listAttr = ref()
 
 
+const scrollContainerRef = ref()
 
- 
-    // const getElement = (value) => {
-    //   listAttr[value.getAttribute('name')] = [value][0].clientWidth
-    //   console.log(listAttr,'getElement');
-    //   return 
-    // }
-  
+const containerItem = ref({})
+
+const currentOffsetLeft = ref(0)
+
+
+// const getElement = (value) => {
+//   listAttr[value.getAttribute('name')] = [value][0].clientWidth
+//   console.log(listAttr,'getElement');
+//   return 
+// }
+
+const getElement = (value) => {
+  containerItem[value.getAttribute("name")] = value.clientWidth
+
+}
+
+const handleLeft = () => {
+  console.log('handleLeft')
+  scrollContainerRef.value.scrollTo({
+    left: (containerItem['0'] * 2) + currentOffsetLeft.value,
+    behavior: "smooth",
+  })
+  currentOffsetLeft.value = currentOffsetLeft.value + (containerItem['0'] * 2)
+}
+
 </script>
 
 <template>
-  <div v-for="(item, index) in PlayList"  :key="item.id" :ref="getElement" :name="String(index)" class="song_container">
-    <div :style="{ backgroundImage: 'url(' + item.picUrl + ')' }" class="song_item">
-      <div class="count">
-        <img alt="" src="/src/assets/findmusic/count.png">
-        <span>{{
+  <button @click="handleLeft">→</button>
+  <!-- 滚动容器 -->
+  <div class="scrollContainer" ref="scrollContainerRef">
+    <div v-for="(item, index) in PlayList" :key="item.id" :ref="getElement" :name="String(index)" class="song_container">
+      <div :style="{ backgroundImage: 'url(' + item.picUrl + ')' }" class="song_item">
+        <div class="count">
+          <img alt="" src="/src/assets/findmusic/count.png">
+          <span>{{
             item.playCount > 100000000 ? (Math.floor(item.playCount / 100000000) + '亿') : (item.playCount > 10000 ?
-                (Math.floor(item.playCount / 10000) + '万') : item.playCount)
+              (Math.floor(item.playCount / 10000) + '万') : item.playCount)
           }}</span>
+        </div>
+        <img alt="" src="/src/assets/findmusic/play.png">
       </div>
-      <img alt="" src="/src/assets/findmusic/play.png">
+      <BottomName :title="item.name" :widths="12" />
     </div>
-    <BottomName :title="item.name" :widths="12"/>
   </div>
 </template>
 
 <style lang="less" scoped>
+.scrollContainer {
+  display: flex;
+  overflow-x: auto;
+}
+
 .song_container {
   margin: 2vh 0 1vh 0;
 
