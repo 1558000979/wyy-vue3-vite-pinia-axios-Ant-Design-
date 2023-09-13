@@ -20,17 +20,10 @@ const listAttr = ref()
     //   return 
     // }
   
-
-    function scrollChange(event){
-      const container = event.target;     // 获取滚动容器元素
-      console.log(container.scrollHeight,'container.scrollHeight');
-      const isScrolledToBottom = container.scrollHeight - container.scrollTop === container.clientHeight;
-}
-
 </script>
 
 <template>
-  <div v-for="(item, index) in PlayList"  @mousewheel="scrollChange" :key="item.id" :ref="getElement" :name="String(index)" class="song_container">
+  <div v-for="(item, index) in PlayList"  :key="item.id" :ref="getElement" :name="String(index)" class="song_container">
     <div :style="{ backgroundImage: 'url(' + item.picUrl + ')' }" class="song_item">
       <div class="count">
         <img alt="" src="/src/assets/findmusic/count.png">
