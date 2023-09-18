@@ -1,4 +1,5 @@
 import axios from "/src/request/request.js";
+
 // 轮播图
 export function getbanner(params) {
     return axios({
@@ -7,6 +8,7 @@ export function getbanner(params) {
         params
     });
 }
+
 // 推荐歌单
 export function getPlayList(params) {
     return axios({
@@ -15,6 +17,7 @@ export function getPlayList(params) {
         params
     });
 }
+
 //独家推送
 export function getAlonesend() {
     return axios({
@@ -22,10 +25,19 @@ export function getAlonesend() {
         method: 'get',
     });
 }
+
 // 推荐Mv
 export function getmvList() {
     return axios({
         url: '/personalized/mv',
+        method: 'get',
+    });
+}
+
+//每日歌单推荐
+export function getDayList() {
+    return axios({
+        url: '/recommend/songs',
         method: 'get',
     });
 }

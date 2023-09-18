@@ -1,8 +1,14 @@
 <template>
-  <div class="left_container">
-    <div class="menu_top" :class="{'active':activeTap=== item.path}" @click="jumpRoute(item.path)" v-for="(item, index) in menu" :key="index">{{ item.name }}</div>
+  <div :class="{'left_container': true, 'cancel_hover': !applyHoverStyle}"
+       :style="{backgroundColor:UseColor.globalbackground==='#2b2b2b'?'#2b2b2b':'',color:UseColor.globalbackground==='#2b2b2b'?'#ffffff':''}">
+    <div v-for="(item, index) in menu" :key="index"
+         :class="[UseColor.globalbackground === '#2b2b2b' && activeTap === item.path ? 'active1' : (activeTap === item.path ? 'active' : '')]"
+
+         class="menu_top" @click="jumpRoute(item.path)">{{ item.name }}
+    </div>
     <div class="menu_my">我的音乐</div>
-    <div class="menu_botom" :class="{'active':activeTap=== item.path}" @click="jumpRoute(item.path)" v-for="(item, index) in menu_my" :key="index">
+    <div v-for="(item, index) in menu_my" :key="index" :class="{'active':activeTap=== item.path}"
+         class="menu_botom" @click="jumpRoute(item.path)">
       <img :src=item.url alt="">
       <div> {{ item.name }}</div>
     </div>
@@ -10,22 +16,37 @@
 </template>
 
 <script setup>
-import {reactive, ref} from 'vue';
+import {reactive, ref, watch} from 'vue';
 import {useRouter} from "vue-router";
-import { menuTopList, menuBottomList } from "./config.js";
+import {menuTopList, menuBottomList} from "./config.js";
+
 const router = useRouter()
 const menu = reactive(menuTopList)
 const menu_my = reactive(menuBottomList)
-const activeTap=ref('/findmusic')
-function jumpRoute(event){
+import {useGlobalbackground} from '/src/stores/Globalbackground.js'
+
+const UseColor = useGlobalbackground()
+const activeTap = ref('/findmusic')
+const applyHoverStyle = ref(true); // 默认应用 hover 样式
+function jumpRoute(event) {
   activeTap.value = event
   router.push({
-    path:event
+    path: event
   })
 }
+
+// 监听如果使用了黑色主题，取消hover样式
+watch(UseColor, (newVal) => {
+  if (newVal.globalbackground === '#2b2b2b') {
+    applyHoverStyle.value = false
+  } else {
+    applyHoverStyle.value = true
+  }
+})
 </script>
 
 <style lang="less" scoped>
+
 .left_container {
   display: flex;
   flex-direction: column;
@@ -62,18 +83,27 @@ function jumpRoute(event){
     }
   }
 
-  .menu_top:hover,
-  .menu_botom:hover {
+  .cancel_hover.menu_top:hover,
+  .cancel_hover .menu_botom:hover {
     font-size: 18px;
     font-weight: 900;
     background-color: #f6f6f7;
     border-radius: 5px;
   }
-  .active{
+
+  .active {
     font-size: 18px;
     font-weight: 900;
     background-color: #f6f6f7;
     border-radius: 5px;
+  }
+
+  .active1 {
+    font-size: 18px;
+    font-weight: 900;
+    background-color: #333333;
+    border-radius: 5px;
+    color: #d6d6d6 !important
   }
 }
 </style>
