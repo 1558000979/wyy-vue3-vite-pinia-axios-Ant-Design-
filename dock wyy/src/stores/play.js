@@ -3,13 +3,17 @@ import {defineStore} from "pinia";
 export const usePlay = defineStore('song', {
     state: () => ({
         globalPlay: {}, //播放信息
+        playAll: []
     }),
     actions: {
-        SetglobalPlayid(params) {
+        SetglobalPlay(params) {
             this.globalPlay = params
+        },
+        SetplayAll(params) {
+            this.playAll = params
         }
     },
     persist: {
-        enabled: true // true 表示开启持久化保存
+        enabled: false // true 表示开启持久化保存
     }
 })

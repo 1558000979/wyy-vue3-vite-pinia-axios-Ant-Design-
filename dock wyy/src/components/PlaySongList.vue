@@ -11,6 +11,14 @@ const props = defineProps({
   tabledata: {
     type: Array,
     default: () => []
+  },
+  marginBottomNum: {
+    type: Number,
+    default: 10
+  },
+  paddingLeftNum: {
+    type: Number,
+    default: .5
   }
 })
 // 把传入的毫秒数转换为分秒
@@ -22,33 +30,32 @@ const formatTime = (time) => {
 
 function play(val) {
   UsePlay.globalPlay = val
-  console.log(val, 'val')
 }
 </script>
 
 <template>
-  <table>
+  <table :style="{marginBottom:`${marginBottomNum}vh`}">
     <tr>
-      <th v-for="(item,index) in props.column" :key="index" :style="`width:${item.width}vw`">{{ item.label }}</th>
+      <th v-for="(item,index) in props.column" :key="index"
+          :style="{width:`${item.width}vw`,paddingLeft:`${paddingLeftNum}vw`}">{{ item.label }}
+      </th>
     </tr>
     <tr v-for="(item,index) in props.tabledata" :key="index"
         :class="{ 'tr-hover': true }"
         :style="`background-color:${index % 2 === 0 ? '#ffffff' : '#fafafa'}`"
         @click="play(item.message)"
     >
-      <td>{{ index + 1 }}</td>
-      <td>{{ item.name }}</td>
-      <td>{{ item.singer }}</td>
-      <td>{{ item.album }}</td>
-      <td>{{ formatTime(item.time) }}</td>
+      <td :style="{paddingLeft:`${paddingLeftNum}vw`}">{{ index + 1 }}</td>
+      <td v-if="item.name">{{ item.name }}</td>
+      <td v-if="item.singer">{{ item.singer }}</td>
+      <td v-if="item.album">{{ item.album }}</td>
+      <td v-if="item.time">{{ formatTime(item.time) }}</td>
     </tr>
   </table>
 </template>
 
 <style lang="less" scoped>
-table {
-  margin-bottom: 10vh;
-}
+
 
 th {
   border-top: 1px solid #999999;
@@ -59,10 +66,10 @@ th {
   text-align: left;
 }
 
-th:nth-child(1),
-td:nth-child(1) {
-  padding-left: 3vw;
-}
+//th:nth-child(1),
+//td:nth-child(1) {
+//  padding-left: 3vw;
+//}
 
 .tr-hover:hover {
   background-color: #f2f2f3 !important;
@@ -74,6 +81,9 @@ td {
   padding: 2vh 0;
   font-size: 14px;
   color: #888888;
+  white-space: nowrap; /* 不换行 */
+  overflow: hidden; /* 超出部分隐藏 */
+  text-overflow: ellipsis; /* 显示省略号 */
 }
 
 </style>

@@ -1,8 +1,8 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 
 export const useGlobalbackground = defineStore('colors', {
     state: () => ({
-        globalbackground: '' //全局背景颜色
+        globalbackground: '#ec4141' //全局背景颜色
     }),
     actions: {
         Setglobalbackground(params) {

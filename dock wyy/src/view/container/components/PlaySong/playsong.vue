@@ -3,11 +3,11 @@
     <audio ref="Audiocontrol" :src="PlayUrl" autoplay></audio>
     <div class="left_container">
       <div class="imgbox">
-        <img :src="Playmessage.picurl" alt="">
+        <img :src="Playmessage?.picurl" alt="暂无歌曲播放">
       </div>
       <div class="title">
-        <div>{{ Playmessage.name }}</div>
-        <div>{{ Playmessage.singer }}</div>
+        <div>{{ Playmessage?.name }}</div>
+        <div>{{ Playmessage?.singer }}</div>
       </div>
     </div>
     <div class="center_container">
@@ -42,8 +42,15 @@
       <div v-if="sourceIcon===2" style=" border-color: #ec4141;color: #ec4141">无损</div>
       <div v-if="sourceIcon===3" style=" border-color: #ec4141;color: #ec4141">极高</div>
       <div v-if="sourceIcon===4" style=" border-color: #ec4141;color: #ec4141">标准</div>
-      <div class="Loop_play">
+      <div class="Loop_playvoice">
         <img alt="" src="/src/assets/play/voice.png">
+        <input max="100" min="0" step="1" type="range" value="5" @change="Volume">
+        <div class="play_lisy">
+          <img alt="打开播放列表" src="/src/assets/play/list.png" @click="ListShow=!ListShow">
+
+          <playList v-if="ListShow" :tabledata="tabledata"/>
+        </div>
+
       </div>
     </div>
   </div>
@@ -52,22 +59,35 @@
 
 <script setup>
 import {onMounted, ref, watch} from 'vue';
+import playList from './components/playlist.vue'
 
-const Audiocontrol = ref(null)
-const PlayUrl = ref('')
-const PlaybackMode = ref(1)
-const PlayorStop = ref(true)
-const sourceIcon = ref(2)
-const Playmessage = ref({})
+const ListShow = ref(false)  //播放列表
+const Audiocontrol = ref(null) //音频控制
+const PlayUrl = ref('') //音频地址
+const PlaybackMode = ref(1) //播放模式
+const PlayorStop = ref(true) //播放暂停
+const sourceIcon = ref(2) //音频来源
+const Playmessage = ref({}) //音频信息
+const tabledata = ref([])
 // 在这里添加你的逻辑代码
-import {useGlobalbackground} from '/src/stores/Globalbackground.js'
-import {usePlay} from '/src/stores/play.js'
-import {getUrl} from '/src/request/api/index.js'
+import {useGlobalbackground} from '/src/stores/Globalbackground.js' //全局背景色
+import {usePlay} from '/src/stores/play.js' //全局播放
+import {getUrl} from '/src/request/api/index.js' //获取音频地址
 
 const UsePlay = usePlay()
 const UseColor = useGlobalbackground()
 // 监听UsePlay.globalPlay的变化
 watch(UsePlay, (newVal) => {
+  if (newVal.playAll.length !== 0) {
+    tabledata.value = newVal.playAll
+    console.log(newVal.playAll, '播放全部')
+  } else {
+    getUrllist(newVal)
+  }
+
+})
+
+function getUrllist(newVal) {
   const val = {
     id: newVal.globalPlay.id
   }
@@ -76,13 +96,17 @@ watch(UsePlay, (newVal) => {
     PlayorStop.value = false
     Playmessage.value = newVal.globalPlay
   })
-
-})
+}
 
 function play() {
   PlayorStop.value = !PlayorStop.value
   const audio = Audiocontrol.value;
   audio.paused ? audio.play() : audio.pause();
+}
+
+function Volume(event) {
+  const audio = Audiocontrol.value;
+  audio.volume = event.target.value / 100
 }
 </script>
 
@@ -102,6 +126,7 @@ function play() {
 
   .left_container {
     display: flex;
+    width: 30vw;
 
     .imgbox {
       width: 65px;
@@ -146,15 +171,38 @@ function play() {
 
   .right_container {
     display: flex;
-    justify-content: space-between;
-    width: 100px;
+    width: 30vw;
     align-items: center;
+    justify-content: right;
 
     div:nth-child(1) {
       border-style: solid;
       border-width: 1px;
 
       padding: 5px;
+    }
+
+    .Loop_playvoice {
+      display: flex;
+      align-items: center;
+
+      .play_lisy {
+        position: relative;
+
+        img {
+          width: 30px;
+          height: 25px;
+          cursor: pointer;
+          margin: 0 .5vw 0 1vw;
+        }
+      }
+
+      img {
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        margin: 0 .5vw 0 1vw;
+      }
     }
 
     .Loop_play {

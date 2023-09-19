@@ -3,7 +3,7 @@ import qs from 'qs'
 
 axios.defaults.withCredentials = true// 允许跨域设置，不然可能因为拿不到cookie而报错
 
-axios.defaults.baseURL = 'http://localhost:3000/'   /*这里的地址就是刚刚启起来的服务器地址  */
+axios.defaults.baseURL = 'http://api.lhlearn.love/'   /*这里的地址就是刚刚启起来的服务器地址  */
 
 /*请求拦截*/
 axios.interceptors.request.use(
@@ -12,7 +12,7 @@ axios.interceptors.request.use(
             config.headers = {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
-            config.data = qs.stringify(config.data, { arrayFormat: 'repeat' }) /*这里是，后端要求传数组的时候做的设置，以前出过错*/
+            config.data = qs.stringify(config.data, {arrayFormat: 'repeat'}) /*这里是，后端要求传数组的时候做的设置，以前出过错*/
         }
         return config
     }, error => {

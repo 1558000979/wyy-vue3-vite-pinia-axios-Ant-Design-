@@ -1,22 +1,23 @@
-
 <template>
-  <router-view />
+  <Loadding v-show="loadding"/>
+  <router-view v-show="!loadding"/>
 </template>
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue';
+import {onMounted, ref} from 'vue';
+
+const loadding = ref(false)
+import Loadding from "/src/components/Loadding.vue";
 
 onMounted(() => {
-  window.addEventListener('popstate', handlePopState);
+  // 写一个计时器为3s的定时器
+  loadding.value = true
+  const timer = setTimeout(() => {
+    loadding.value = false
+  }, 500)
+
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener('popstate', handlePopState);
-});
 
-function handlePopState(event) {
-  // 在这里执行前进或后退操作的逻辑
-  console.log('页面前进或返回', event);
-}
 </script>
 <style lang="less">
 @import "assets/font/font.css";

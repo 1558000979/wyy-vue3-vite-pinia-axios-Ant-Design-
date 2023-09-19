@@ -4,7 +4,9 @@ import {useGlobalbackground} from '/src/stores/Globalbackground.js'
 import List from '/src/components/PlaySongList.vue'
 import {onMounted, ref} from "vue";
 import {getDayList} from "/src/request/api/findmusic/index.js";
+import {usePlay} from "/src/stores/play.js";
 
+const UsePlay = usePlay()
 const column = ref([
   {
     prop: 'index',
@@ -50,6 +52,10 @@ onMounted(() => {
     }))
   })
 })
+
+function playAll() {
+  UsePlay.playAll = tabledata.value
+}
 </script>
 
 <template>
@@ -64,12 +70,12 @@ onMounted(() => {
       </div>
     </div>
     <div class="button_container">
-      <div class="play_button">
-        <img alt="" src="/src/assets/findmusic/relay.png">
+      <div class="play_button" @click="playAll">
+        <img alt="播放全部" src="/src/assets/findmusic/relay.png">
         播放全部
       </div>
       <div class="collect_button">
-        <img alt="" src="/src/assets/findmusic/collect.png">
+        <img alt="收藏全部" src="/src/assets/findmusic/collect.png">
         收藏全部
       </div>
     </div>
