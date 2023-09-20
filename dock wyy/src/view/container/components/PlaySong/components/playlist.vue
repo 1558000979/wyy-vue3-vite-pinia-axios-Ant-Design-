@@ -44,7 +44,7 @@ function deleteall() {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 99;
   position: absolute;
-  bottom: 10vh;
+  bottom: 6vh;
   right: 0;
 
   .Top_container {
@@ -68,6 +68,7 @@ function deleteall() {
 
   .bottom_comtainer {
     height: 80%;
+    width: 100%;
     overflow: auto;
   }
 

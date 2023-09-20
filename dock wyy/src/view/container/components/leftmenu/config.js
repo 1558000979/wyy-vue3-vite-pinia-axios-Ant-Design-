@@ -29,31 +29,31 @@ export const menuBottomList = [
     {
         path: '/Ilikemusic',
         name: '我喜欢的音乐',
-        url: '/src/assets/leftmenu/love.png'
+        url: 'https://124.220.52.97:8888/down/iTZb1931vrHw.png'
     },
     {
         path: '/LocalorDown',
         name: '本地与下载',
-        url: '/src/assets/leftmenu/updown.png'
+        url: 'https://124.220.52.97:8888/down/5Qjj6nFMFveC.png'
     },
     {
         path: '/lately',
         name: '最近播放',
-        url: '/src/assets/leftmenu/lately.png'
+        url: 'https://124.220.52.97:8888/down/hySYzu6x8Jrs.png'
     },
     {
         path: '/Clouddisk',
         name: '我的音乐云盘',
-        url: '/src/assets/leftmenu/Clouddisk.png'
+        url: 'https://124.220.52.97:8888/down/i5kdDV1jip8S.png'
     },
     {
         path: '/Rstoresame',
         name: '我的播客',
-        url: '/src/assets/leftmenu/broadcast.png'
+        url: 'https://124.220.52.97:8888/down/jZBO2XWGdJY7.png'
     },
     {
         path: '/Collect',
         name: '我的收藏',
-        url: '/src/assets/leftmenu/Collect.png'
+        url: 'https://124.220.52.97:8888/down/eo3FrdfqdoRe.png'
     },
 ]

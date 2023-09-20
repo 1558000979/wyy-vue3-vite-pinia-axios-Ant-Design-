@@ -33,27 +33,48 @@ function play(message, item) {
   let set = new Set(UsePlay.playAll)
   set.add(item)
   UsePlay.playAll = [...set]
-
 }
 </script>
 
 <template>
   <table :style="{marginBottom:`${marginBottomNum}vh`}">
+    <thead>
     <tr>
       <th v-for="(item,index) in props.column" :key="index"
-          :style="{width:`${item.width}vw`,paddingLeft:`${paddingLeftNum}vw`}">{{ item.label }}
+          :style="{width:`${item.width}`,paddingLeft:`${paddingLeftNum}vw`}">{{ item.label }}
       </th>
     </tr>
+    </thead>
     <tr v-for="(item,index) in props.tabledata" :key="index"
         :class="{ 'tr-hover': true }"
         :style="`background-color:${index % 2 === 0 ? '#ffffff' : '#fafafa'}`"
         @click="play(item.message,item)"
     >
-      <td :style="{paddingLeft:`${paddingLeftNum}vw`}">{{ index + 1 }}</td>
-      <td v-if="item.name">{{ item.name }}</td>
-      <td v-if="item.singer">{{ item.singer }}</td>
-      <td v-if="item.album">{{ item.album }}</td>
-      <td v-if="item.time">{{ formatTime(item.time) }}</td>
+      <td :style="{paddingLeft:`${paddingLeftNum}vw`}">
+        <div :style="{width:`${props.column[0].width}`}" class="text">
+          {{ index + 1 }}
+        </div>
+      </td>
+      <td v-if="item.name">
+        <div :style="{width:`${props.column[1].width}`}" class="text">
+          {{ item.name }}
+        </div>
+      </td>
+      <td v-if="item.singer">
+        <div :style="{width:`${props.column[2].width}`}" class="text">
+          {{ item.singer }}
+        </div>
+      </td>
+      <td v-if="item.album">
+        <div :style="{width:`${props.column[3].width}`}" class="text">
+          {{ item.album }}
+        </div>
+      </td>
+      <td v-if="item.time">
+        <div :style="{width:`${props.column[4].width}`}" class="text">
+          {{ formatTime(item.time) }}
+        </div>
+      </td>
     </tr>
   </table>
 </template>
@@ -70,6 +91,15 @@ th {
   text-align: left;
 }
 
+.text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.width {
+  width: 20vw;
+}
 
 .tr-hover:hover {
   background-color: #f2f2f3 !important;
@@ -81,9 +111,9 @@ td {
   padding: 2vh 0;
   font-size: 14px;
   color: #888888;
-  white-space: nowrap; /* 不换行 */
-  overflow: hidden; /* 超出部分隐藏 */
-  text-overflow: ellipsis; /* 显示省略号 */
+  //white-space: nowrap; /* 不换行 */
+  //overflow: hidden; /* 超出部分隐藏 */
+  //text-overflow: ellipsis; /* 显示省略号 */
 }
 
 </style>

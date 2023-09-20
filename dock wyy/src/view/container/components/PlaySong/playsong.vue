@@ -1,7 +1,7 @@
 <template>
   <div :style="{backgroundColor:UseColor.globalbackground==='#2b2b2b'?'#2b2b2b':''}" class="play_container">
     <audio ref="Audiocontrol" :src="PlayUrl" autoplay></audio>
-    <div class="left_container">
+    <div v-show="ismessage" class="left_container">
       <div class="imgbox">
         <img :src="Playmessage?.picurl" alt="暂无歌曲播放">
       </div>
@@ -11,19 +11,19 @@
       </div>
     </div>
     <div class="center_container">
-      <!--      循环-->
-      <div v-if="PlaybackMode===1" class="Loop_play">
+      <!--      单曲循环-->
+      <div v-if="PlaybackMode===1" class="Loop_play" @click="PlayMode()">
         <img alt="" src="/src/assets/play/Loop.png">
       </div>
       <!--   随机-->
-      <div v-if="PlaybackMode===2" class="Loop_play">
+      <div v-if="PlaybackMode===2" class="Loop_play" @click="PlayMode()">
         <img alt="" src="/src/assets/play/Random.png">
       </div>
       <!--   顺序   -->
-      <div v-if="PlaybackMode===3" class="Loop_play">
+      <div v-if="PlaybackMode===3" class="Loop_play" @click="PlayMode()">
         <img alt="" src="/src/assets/play/sequence.png">
       </div>
-      <div class="Loop_play">
+      <div class="Loop_play" @click="go(false)">
         <img alt="" src="/src/assets/play/back.png">
       </div>
       <div v-if="PlayorStop" class="Loop_play" @click="play">
@@ -32,12 +32,12 @@
       <div v-if="!PlayorStop" class="Loop_play" @click="play">
         <img alt="" src="/src/assets/play/stop.png">
       </div>
-      <div class="Loop_play">
+      <div class="Loop_play" @click="go(true)">
         <img alt="" src="/src/assets/play/go.png">
       </div>
       <div class="word">词</div>
     </div>
-    <div class="right_container">
+    <div v-show="ismessage" class="right_container">
       <div v-if="sourceIcon===1" style=" border-color: #999999;">云盘</div>
       <div v-if="sourceIcon===2" style=" border-color: #ec4141;color: #ec4141">无损</div>
       <div v-if="sourceIcon===3" style=" border-color: #ec4141;color: #ec4141">极高</div>
@@ -61,10 +61,11 @@
 import {onMounted, ref, watch} from 'vue';
 import playList from './components/playlist.vue'
 
+const ismessage = ref(false)
 const ListShow = ref(false)  //播放列表
 const Audiocontrol = ref(null) //音频控制
 const PlayUrl = ref('') //音频地址
-const PlaybackMode = ref(1) //播放模式
+const PlaybackMode = ref(3) //播放模式
 const PlayorStop = ref(true) //播放暂停
 const sourceIcon = ref(2) //音频来源
 const Playmessage = ref({}) //音频信息
@@ -77,20 +78,51 @@ const UsePlay = usePlay()
 const UseColor = useGlobalbackground()
 // 监听UsePlay.globalPlay的变化
 watch(UsePlay, (newVal) => {
+  if (newVal.globalPlay === {}) {
+    ismessage.value = false
+  } else {
+    ismessage.value = true
+  }
   getUrllist(newVal)
 })
 
 function getUrllist(newVal) {
-  const val = {
-    id: newVal.globalPlay.id
-  }
-  getUrl(val).then(res => {
-    PlayUrl.value = res.data.data[0].url
-    PlayorStop.value = false
+  if (newVal.globalPlay === undefined) {
+    Playmessage.value = newVal.message
+    const val = {
+      id: Playmessage.value.id
+    }
+    getUrl(val).then(res => {
+      PlayUrl.value = res.data.data[0].url
+      PlayorStop.value = false
+      const audio = Audiocontrol.value
+      audio.volume = .2
+    })
+  } else {
     Playmessage.value = newVal.globalPlay
-    const audio = Audiocontrol.value
-    audio.volume = .2
-  })
+    console.log(Playmessage.value, '点击')
+    const val = {
+      id: Playmessage.value.id
+    }
+    getUrl(val).then(res => {
+      PlayUrl.value = res.data.data[0].url
+      PlayorStop.value = false
+      const audio = Audiocontrol.value
+      audio.volume = .2
+    })
+  }
+
+
+}
+
+function PlayMode() {
+  if (PlaybackMode.value === 1) {
+    PlaybackMode.value = 2
+  } else if (PlaybackMode.value === 2) {
+    PlaybackMode.value = 3
+  } else if (PlaybackMode.value === 3) {
+    PlaybackMode.value = 1
+  }
 }
 
 function pause() {
@@ -106,11 +138,56 @@ function play() {
   audio.paused ? audio.play() : audio.pause();
 }
 
+function go(val) {
+  console.log(UsePlay.playAll, '播放列表')
+//  如果val是true 从播放列表里面切换下一首歌曲进行播放 再点击下一首继续切换
+//   单曲循环判断
+  if (PlaybackMode.value === 1) {
+    Playmessage.value = UsePlay.playAll[0]
+    getUrllist(UsePlay.playAll[0])
+  }
+//   顺序播放判断
+  if (PlaybackMode.value === 3) {
+    if (val) {
+      const index = UsePlay.playAll.findIndex(item => item.message.id === Playmessage.value.id)
+      if (index === UsePlay.playAll.length - 1) {
+        Playmessage.value = UsePlay.playAll[0]
+        getUrllist(UsePlay.playAll[0])
+      }
+      // 如果切换到了最后一首歌曲 就切换到第一首歌曲
+      else if (index === -1) {
+        Playmessage.value = UsePlay.playAll[0]
+      } else {
+        Playmessage.value = UsePlay.playAll[index + 1]
+        getUrllist(UsePlay.playAll[index + 1])
+      }
+
+    }
+//  如果val是false 从播放列表里面切换上一首歌曲进行播放 再点击上一首继续切换
+    if (!val) {
+      const index = UsePlay.playAll.findIndex(item => item.message.id === Playmessage.value.id)
+      if (index === 0) {
+        Playmessage.value = UsePlay.playAll[UsePlay.playAll.length - 1]
+        getUrllist(UsePlay.playAll[UsePlay.playAll.length - 1])
+      } else {
+        Playmessage.value = UsePlay.playAll[index - 1]
+        getUrllist(UsePlay.playAll[index - 1])
+      }
+    }
+  }
+//  随机播放
+  if (PlaybackMode.value === 2) {
+    const index = Math.floor(Math.random() * UsePlay.playAll.length)
+    Playmessage.value = UsePlay.playAll[index]
+    getUrllist(UsePlay.playAll[index])
+  }
+}
+
 function Volume(event) {
   const audio = Audiocontrol.value;
   audio.volume = event.target.value / 100
-
 }
+
 </script>
 
 <style lang="less" scoped>

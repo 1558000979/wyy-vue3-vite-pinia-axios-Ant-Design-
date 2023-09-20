@@ -11,27 +11,27 @@ const column = ref([
   {
     prop: 'index',
     label: '序号',
-    width: '10'
+    width: '5vw'
   },
   {
     prop: 'name',
     label: '音乐标题',
-    width: '30'
+    width: '20vw'
   },
   {
     prop: 'singer',
     label: '歌手',
-    width: '20'
+    width: '20vw'
   },
   {
     prop: 'album',
     label: '专辑',
-    width: '20'
+    width: '35vw'
   },
   {
     prop: 'time',
     label: '时长',
-    width: '20'
+    width: '10vw'
   }
 ])
 const tabledata = ref([])
