@@ -1,20 +1,21 @@
 <script setup>
 import list from '/src/components/PlaySongList.vue'
-import {defineProps} from "vue";
 import {column} from "/src/view/container/components/PlaySong/components/config.js";
 import {usePlay} from "/src/stores/play.js";
+import {ref, watch, defineEmits} from "vue";
 
-const usePlays = usePlay()
-const props = defineProps({
-  tabledata: {
-    type: Array,
-    default: () => []
-  }
+const emit = defineEmits(['pause'])
+const store = usePlay()
+const tabledata = ref(store.playAll)
+// 监听store的变化
+watch(store, (newVal) => {
+  tabledata.value = newVal.playAll
 })
 
+
 function deleteall() {
-  usePlays.$reset()
-  props.tabledata = []
+  store.$reset()
+  emit('pause')
 }
 </script>
 

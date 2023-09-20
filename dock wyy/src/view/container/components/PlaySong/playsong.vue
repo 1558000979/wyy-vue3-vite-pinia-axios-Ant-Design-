@@ -44,11 +44,11 @@
       <div v-if="sourceIcon===4" style=" border-color: #ec4141;color: #ec4141">标准</div>
       <div class="Loop_playvoice">
         <img alt="" src="/src/assets/play/voice.png">
-        <input max="100" min="0" step="1" type="range" value="5" @change="Volume">
+        <input max="100" min="0" step="1" style="cursor: pointer" type="range" value="5" @change="Volume">
         <div class="play_lisy">
           <img alt="打开播放列表" src="/src/assets/play/list.png" @click="ListShow=!ListShow">
 
-          <playList v-if="ListShow" :tabledata="tabledata"/>
+          <playList v-show="ListShow" @pause="pause"/>
         </div>
 
       </div>
@@ -68,7 +68,6 @@ const PlaybackMode = ref(1) //播放模式
 const PlayorStop = ref(true) //播放暂停
 const sourceIcon = ref(2) //音频来源
 const Playmessage = ref({}) //音频信息
-const tabledata = ref([])
 // 在这里添加你的逻辑代码
 import {useGlobalbackground} from '/src/stores/Globalbackground.js' //全局背景色
 import {usePlay} from '/src/stores/play.js' //全局播放
@@ -78,13 +77,7 @@ const UsePlay = usePlay()
 const UseColor = useGlobalbackground()
 // 监听UsePlay.globalPlay的变化
 watch(UsePlay, (newVal) => {
-  if (newVal.playAll.length !== 0) {
-    tabledata.value = newVal.playAll
-    console.log(newVal.playAll, '播放全部')
-  } else {
-    getUrllist(newVal)
-  }
-
+  getUrllist(newVal)
 })
 
 function getUrllist(newVal) {
@@ -95,7 +88,16 @@ function getUrllist(newVal) {
     PlayUrl.value = res.data.data[0].url
     PlayorStop.value = false
     Playmessage.value = newVal.globalPlay
+    const audio = Audiocontrol.value
+    audio.volume = .2
   })
+}
+
+function pause() {
+  const audio = Audiocontrol.value;
+  audio.pause();
+  PlayorStop.value = !PlayorStop.value
+  Playmessage.value = {}
 }
 
 function play() {
@@ -107,6 +109,7 @@ function play() {
 function Volume(event) {
   const audio = Audiocontrol.value;
   audio.volume = event.target.value / 100
+
 }
 </script>
 

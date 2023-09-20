@@ -28,8 +28,12 @@ const formatTime = (time) => {
   return `${minute}:${second < 10 ? '0' + second : second}`;
 }
 
-function play(val) {
-  UsePlay.globalPlay = val
+function play(message, item) {
+  UsePlay.globalPlay = message
+  let set = new Set(UsePlay.playAll)
+  set.add(item)
+  UsePlay.playAll = [...set]
+
 }
 </script>
 
@@ -43,7 +47,7 @@ function play(val) {
     <tr v-for="(item,index) in props.tabledata" :key="index"
         :class="{ 'tr-hover': true }"
         :style="`background-color:${index % 2 === 0 ? '#ffffff' : '#fafafa'}`"
-        @click="play(item.message)"
+        @click="play(item.message,item)"
     >
       <td :style="{paddingLeft:`${paddingLeftNum}vw`}">{{ index + 1 }}</td>
       <td v-if="item.name">{{ item.name }}</td>
@@ -66,10 +70,6 @@ th {
   text-align: left;
 }
 
-//th:nth-child(1),
-//td:nth-child(1) {
-//  padding-left: 3vw;
-//}
 
 .tr-hover:hover {
   background-color: #f2f2f3 !important;
