@@ -5,6 +5,7 @@ import List from '/src/components/PlaySongList.vue'
 import {onMounted, ref} from "vue";
 import {getDayList} from "/src/request/api/findmusic/index.js";
 import {usePlay} from "/src/stores/play.js";
+import ButtonAll from '/src/components/ButtonAll.vue'
 
 const UsePlay = usePlay()
 const column = ref([
@@ -72,16 +73,21 @@ function playAll() {
         </div>
       </div>
     </div>
-    <div class="button_container">
-      <div class="play_button" @click="playAll">
-        <img alt="播放全部" src="/src/assets/findmusic/relay.png">
-        播放全部
-      </div>
-      <div class="collect_button">
-        <img alt="收藏全部" src="/src/assets/findmusic/collect.png">
-        收藏全部
-      </div>
+    <div style="display: flex">
+      <ButtonAll/>
+      <ButtonAll color="#FFFFFF" name="收藏全部" show="true" url="/src/assets/findmusic/collect.png"/>
     </div>
+
+    <!--    <div class="button_container">-->
+    <!--      <div class="play_button" @click="playAll">-->
+    <!--        <img alt="播放全部" src="/src/assets/findmusic/relay.png">-->
+    <!--        播放全部-->
+    <!--      </div>-->
+    <!--      <div class="collect_button">-->
+    <!--        <img alt="收藏全部" src="/src/assets/findmusic/collect.png">-->
+    <!--        收藏全部-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
   <List :column="column" :tabledata="tabledata"/>
 </template>

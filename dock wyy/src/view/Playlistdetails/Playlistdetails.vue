@@ -1,6 +1,7 @@
 <script setup>
-import Topdetails from '/src/components/PlayListDetails.vue'
+import Topdetails from '/src/components/TopContainer.vue'
 import List from '/src/components/PlaySongList.vue'
+import Taps from '/src/view/Playlistdetails/components/Taps.vue'
 import {ref} from "vue";
 
 const column = ref([
@@ -35,6 +36,7 @@ const tabledata = ref([])
 
 <template>
   <Topdetails/>
+  <Taps/>
   <List :column="column" :tabledata="tabledata"/>
 </template>
 

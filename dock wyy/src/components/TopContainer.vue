@@ -1,5 +1,6 @@
 <script setup>
 import {useGlobalbackground} from "/src/stores/Globalbackground.js";
+import PlayButton from "/src/components/ButtonAll.vue";
 
 const useColor = useGlobalbackground()
 </script>
@@ -17,19 +18,23 @@ const useColor = useGlobalbackground()
         <a href="">云音乐私人雷达</a>
         <div class="info">2019-12-26创建</div>
       </div>
-      <div class="button_container">
-        <div class="play_button" @click="playAll">
-          <img alt="播放全部" src="/src/assets/findmusic/relay.png">
-          播放全部
-        </div>
-        <div class="collect_button">
-          <img alt="收藏全部" src="/src/assets/findmusic/collect.png">
-          收藏全部
-        </div>
-      </div>
+      <PlayButton/>
       <div class="tip">
         <div>标签：</div>
-        <div>华语/流行/说唱</div>
+        <div class="tit">华语/流行/说唱</div>
+      </div>
+      <div class="tip" style="margin-top: 10px">
+        <div style="margin-right: 5px">歌曲：
+          <span class="font_12"> 20</span>
+        </div>
+        <div>播放：
+          <span class="font_12">21万</span>
+        </div>
+      </div>
+      <div class="tip" style="margin-top: 10px">
+        <div>简介：
+          <span class="font_12">世界给予我山花烂漫</span>
+        </div>
       </div>
     </div>
   </div>
@@ -90,63 +95,18 @@ const useColor = useGlobalbackground()
       }
     }
 
-    .button_container {
-      display: flex;
-      margin: 20px 0;
-
-      .play_button {
-        background-color: red;
-        padding: 12px 30px;
-        display: flex;
-        align-items: center;
-        border-radius: 20px;
-        color: #FFFFFF;
-        font-size: 14px;
-
-        img {
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-        }
-      }
-
-      //点击按钮时变色
-
-      .play_button:hover {
-        background-color: #d93f3f;
-        cursor: pointer;
-      }
-
-      .collect_button {
-        background-color: #fff;
-        padding: 12px 20px;
-        display: flex;
-        align-items: center;
-        border-radius: 20px;
-        font-size: 14px;
-        border: 1px solid #999999;
-        margin-left: 20px;
-
-        img {
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
-        }
-      }
-
-      .collect_button:hover {
-        background-color: #999;
-        cursor: pointer;
-      }
-    }
 
     .tip {
       display: flex;
 
-      div:nth-child(2) {
+      .tit {
         color: #7ca6c4;
       }
     }
   }
+}
+
+.font_12 {
+  font-size: 12px;
 }
 </style>
