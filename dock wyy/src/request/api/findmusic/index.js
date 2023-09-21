@@ -41,3 +41,12 @@ export function getDayList() {
         method: 'get',
     });
 }
+
+//歌单详情
+export function getListDetails(params) {
+    return axios({
+        url: '/playlist/detail',
+        method: 'get',
+        params
+    });
+}

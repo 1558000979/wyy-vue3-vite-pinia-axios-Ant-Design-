@@ -55,6 +55,11 @@ const router = createRouter({
                     component: () => import('../view/findmusic/findmusics/SongList/SongDay.vue')
                 },
                 {
+                    path: '/findmusic/PlayDetail',
+                    name: 'PlayDetail',
+                    component: () => import('/src/view/Playlistdetails/Playlistdetails.vue')
+                },
+                {
                     path: '/podcast',
                     name: 'podcast',
                     component: () => import('../view/podcast/podcast.vue')
@@ -109,6 +114,7 @@ const router = createRouter({
                     name: 'Collect',
                     component: () => import('../view/Mycollection/Mycollection.vue')
                 },
+
             ]
         },
 

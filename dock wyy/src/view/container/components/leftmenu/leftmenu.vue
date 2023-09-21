@@ -106,4 +106,12 @@ watch(UseColor, (newVal) => {
     color: #d6d6d6 !important
   }
 }
+
+//屏幕尺寸达到1352px时，左侧菜单栏的样式
+@media screen and (max-width: 1352px) {
+  .left_container,
+  .menu_botom {
+    font-size: 12px;
+  }
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
-    <div class="down_container">
-        <Attention />
-        <Cardlist />
-    </div>
+  <div class="down_container">
+    <Attention/>
+    <Cardlist/>
+  </div>
 </template>
 
 <script setup>
@@ -12,17 +12,17 @@ import Cardlist from "/src/view/headTop/components/avatar/drowcard/card_list.vue
 
 <style lang="less" scoped>
 .down_container {
-    display: flex;
-    flex-direction: column;
-    width: 17vw;
-    height: 41vh;
-    position: absolute;
-    top: 7vh;
-    left: -2vw;
-    background-color: #fff;
-    box-shadow: 0 0 18px #999;
-    border-radius: 10px;
-z-index: 1;
-
+  display: flex;
+  flex-direction: column;
+  width: 285px;
+  height: 380px;
+  position: absolute;
+  top: 7vh;
+  left: -2vw;
+  background-color: #fff;
+  box-shadow: 0 0 18px #999;
+  border-radius: 10px;
+  z-index: 1;
+  zoom: 1;
 }
 </style>

@@ -43,11 +43,14 @@ onMounted(() => {
       singer: item.ar[0]?.name,
       album: item.al?.name,
       time: item.dt,
+      fee: item.fee,
       message: {
         picurl: item.al?.picUrl,
         id: item.id,
         name: item.name,
         singer: item.ar[0]?.name,
+        time: item.dt,
+        fee: item.fee
       }
     }))
   })

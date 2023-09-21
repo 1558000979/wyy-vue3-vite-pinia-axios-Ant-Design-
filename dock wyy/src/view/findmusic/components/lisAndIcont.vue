@@ -1,8 +1,8 @@
 <script setup>
-import {onMounted, ref, onUnmounted} from 'vue'
+import {defineProps} from "vue";
+import {useRouter} from "vue-router";
 
-import {throttle} from "underscore";
-
+const router = useRouter()
 const props = defineProps({
   PlayList: {
     type: Array
@@ -11,13 +11,21 @@ const props = defineProps({
 
 import BottomName from "/src/view/findmusic/components/Name.vue";
 
+function skip(val) {
+  router.push({
+    name: 'PlayDetail',
+    params: {
+      ...val
+    }
+  })
+}
 
 </script>
 
 <template>
 
   <div v-for="(item, index) in PlayList" :key="item.id"
-       class="song_container">
+       class="song_container" @click="skip(item)">
     <div :style="{ backgroundImage: 'url(' + item.picUrl + ')' }" class="song_item">
       <div class="count">
         <img alt="" src="/src/assets/findmusic/count.png">
