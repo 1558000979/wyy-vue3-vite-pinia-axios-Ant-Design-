@@ -7,7 +7,7 @@ import {ref} from "vue";
 const column = ref([
   {
     prop: 'index',
-    label: '序号',
+    label: '牛马',
     width: '5vw'
   },
   {
