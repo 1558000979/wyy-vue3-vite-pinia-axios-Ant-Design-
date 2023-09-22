@@ -57,7 +57,7 @@ const router = createRouter({
                 {
                     path: '/findmusic/PlayDetail',
                     name: 'PlayDetail',
-                    component: () => import('/src/view/Playlistdetails/Playlistdetails.vue')
+                    component: () => import('/src/view/Playlistdetails/Playlistdetails.vue'),
                 },
                 {
                     path: '/podcast',

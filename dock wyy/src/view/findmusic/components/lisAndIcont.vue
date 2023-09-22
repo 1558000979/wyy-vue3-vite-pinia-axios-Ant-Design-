@@ -1,5 +1,4 @@
 <script setup>
-import {defineProps} from "vue";
 import {useRouter} from "vue-router";
 
 const router = useRouter()
@@ -15,8 +14,8 @@ function skip(val) {
   console.log(val, 'val')
   router.push({
     name: 'PlayDetail',
-    params: {
-      ...val
+    query: {
+      id: val.id
     }
   })
 }

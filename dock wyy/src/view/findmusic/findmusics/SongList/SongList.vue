@@ -11,7 +11,7 @@ import List from '/src/view/findmusic/components/lisAndIcont.vue'
 const PlayList = ref([])
 onMounted(() => {
   let val = {
-    limit: 11
+    limit: 11,
   }
   getPlayList(val).then(res => {
     PlayList.value = res.data.result

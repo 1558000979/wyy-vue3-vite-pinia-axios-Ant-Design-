@@ -1,27 +1,56 @@
 <script setup>
 import {useGlobalbackground} from "/src/stores/Globalbackground.js";
 import PlayButton from "/src/components/ButtonAll.vue";
+import {onMounted, ref} from "vue";
+import {useRoute} from "vue-router";
+import {getListDetails} from '/src/request/api/findmusic/index.js'
 
+const message = ref({})
+const route = useRoute()
+onMounted(() => {
+  getListDetails({id: route.query.id}).then(res => {
+    message.value = res?.data?.playlist
+    console.log(message.value, 'message')
+  })
+})
 const useColor = useGlobalbackground()
+
+// 时间戳转换时间
+function formatTime(time) {
+
+  let date = new Date(Number(time));
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  return `${year}-${month}-${day}`;
+}
 </script>
 
 <template>
   <div class="Top_container">
-    <img alt="" src="">
+    <img :src="message?.coverImgUrl" alt="">
     <div class="right_container">
       <div class="title">
         <div :style="{borderColor:useColor.globalbackground,color:useColor.globalbackground}" class="tips">歌单</div>
-        <h2>今天从《下完这场雨 (0.8x降速版)》听起|私人雷达</h2>
+        <h2>{{ message?.name }}</h2>
       </div>
       <div class="author">
-        <img alt="" src="">
-        <a href="">云音乐私人雷达</a>
-        <div class="info">2019-12-26创建</div>
+        <img :src="message?.creator?.avatarUrl" alt="">
+        <a href="">{{ message?.creator?.nickname }}</a>
+        <div class="info">{{ formatTime(message.createTime) }}创建</div>
+        <div class="font_12" style="margin-left: 5px">
+          <div v-html="message?.creator?.signature"></div>
+        </div>
       </div>
       <PlayButton/>
       <div class="tip">
         <div>标签：</div>
-        <div class="tit">华语/流行/说唱</div>
+        <div class="tit tip">
+          <div v-for=" item in message.tags" :key="index">
+            {{ item }}
+          </div>
+        </div>
       </div>
       <div class="tip" style="margin-top: 10px">
         <div style="margin-right: 5px">歌曲：
@@ -101,6 +130,10 @@ const useColor = useGlobalbackground()
 
       .tit {
         color: #7ca6c4;
+
+        div {
+          margin-right: 5px;
+        }
       }
     }
   }

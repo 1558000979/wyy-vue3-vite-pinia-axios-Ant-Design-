@@ -53,7 +53,7 @@ const Tap = ref([
 const tabledata = ref([])
 
 onMounted(() => {
-  console.log(route.params, 'route.params')
+
 })
 
 function onMenu(val) {
