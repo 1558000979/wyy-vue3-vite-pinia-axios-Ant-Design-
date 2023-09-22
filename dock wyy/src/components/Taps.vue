@@ -1,37 +1,29 @@
 <script setup>
-import {ref} from "vue";
+import {ref, defineProps} from "vue";
 import {useGlobalbackground} from "/src/stores/Globalbackground.js";
 
+const emit = defineEmits(['click'])
+const props = defineProps({
+  Taps: {
+    type: Array,
+    default: () => []
+  },
+})
 const useColor = useGlobalbackground()
-const Taps = ref([
-  {
-    name: '歌曲列表',
-    value: 1,
-    num: ''
-  },
-  {
-    name: '评论',
-    value: 2,
-    num: ''
-  },
-  {
-    name: '收藏者',
-    value: 3,
-    num: ''
-  }
-])
+
 const active = ref(1)
 
 function OnitemMenu(val) {
+  emit('click', val)
   active.value = val
 }
 </script>
 
 <template>
   <div class="Taps">
-    <div v-for="item in Taps" :key="item.value" :class="{'active':active===item.value}"
+    <div v-for="item in props.Taps" :key="item.value" :class="{'active':active===item.value}"
          :style="{ borderColor: useColor.globalbackground }" @click="OnitemMenu(item.value)">
-      {{ item.name }}
+      {{ item.name }} {{ item.num !== '' ? item.num : '' }}
     </div>
   </div>
 </template>

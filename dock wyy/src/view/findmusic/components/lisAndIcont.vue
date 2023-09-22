@@ -12,6 +12,7 @@ const props = defineProps({
 import BottomName from "/src/view/findmusic/components/Name.vue";
 
 function skip(val) {
+  console.log(val, 'val')
   router.push({
     name: 'PlayDetail',
     params: {

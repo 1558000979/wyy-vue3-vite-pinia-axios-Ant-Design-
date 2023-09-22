@@ -3,8 +3,8 @@ import qs from 'qs'
 
 axios.defaults.withCredentials = true// 允许跨域设置，不然可能因为拿不到cookie而报错
 
-axios.defaults.baseURL = 'http://api.lhlearn.love/'  //线上
-// axios.defaults.baseURL = 'http://localhost:3000'  //本地
+// axios.defaults.baseURL = 'http://api.lhlearn.love/'  //线上
+axios.defaults.baseURL = 'http://localhost:3000'  //本地
 /*请求拦截*/
 axios.interceptors.request.use(
     config => {
