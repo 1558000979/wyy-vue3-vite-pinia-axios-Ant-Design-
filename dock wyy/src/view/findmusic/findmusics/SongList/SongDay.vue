@@ -6,6 +6,7 @@ import {onMounted, ref} from "vue";
 import {getDayList} from "/src/request/api/findmusic/index.js";
 import {usePlay} from "/src/stores/play.js";
 import ButtonAll from '/src/components/ButtonAll.vue'
+import collect from '/src/assets/findmusic/collect.png'
 
 const UsePlay = usePlay()
 const column = ref([
@@ -40,21 +41,6 @@ const UseColor = useGlobalbackground()
 onMounted(() => {
   getDayList().then(res => {
     tabledata.value = res.data.data.dailySongs
-    // .map(item => ({
-    //   name: item.name,
-    //   singer: item.ar[0]?.name,
-    //   album: item.al?.name,
-    //   time: item.dt,
-    //   fee: item.fee,
-    //   message: {
-    //     picurl: item.al?.picUrl,
-    //     id: item.id,
-    //     name: item.name,
-    //     singer: item.ar[0]?.name,
-    //     time: item.dt,
-    //     fee: item.fee
-    //   }
-    // }))
   })
 })
 
@@ -76,7 +62,7 @@ function playAll() {
     </div>
     <div style="display: flex">
       <ButtonAll/>
-      <ButtonAll color="#FFFFFF" name="收藏全部" show="true" url="/src/assets/findmusic/collect.png"/>
+      <ButtonAll :url="collect" color="#FFFFFF" name="收藏全部" show="true"/>
     </div>
   </div>
   <List :column="column" :tabledata="tabledata"/>

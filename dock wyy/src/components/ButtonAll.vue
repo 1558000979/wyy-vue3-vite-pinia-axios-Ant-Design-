@@ -1,5 +1,6 @@
 <script setup>
 import {defineProps} from "vue";
+import relay from '/src/assets/findmusic/relay.png'
 
 const props = defineProps({
   color: {
@@ -12,7 +13,7 @@ const props = defineProps({
   },
   url: {
     type: String,
-    default: '/src/assets/findmusic/relay.png'
+    default: relay
   },
   show: {
     type: Boolean,

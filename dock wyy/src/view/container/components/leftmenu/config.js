@@ -1,3 +1,10 @@
+import love from '/src/assets/leftmenu/love.png'
+import down from '/src/assets/leftmenu/updown.png'
+import lately from '/src/assets/leftmenu/lately.png'
+import Clouddisk from '/src/assets/leftmenu/Clouddisk.png'
+import broadcast from '/src/assets/leftmenu/broadcast.png'
+import Collect from '/src/assets/leftmenu/Collect.png'
+
 export const menuTopList = [
     {
         path: '/findmusic',
@@ -29,31 +36,31 @@ export const menuBottomList = [
     {
         path: '/Ilikemusic',
         name: '我喜欢的音乐',
-        url: 'https://124.220.52.97:8888/down/iTZb1931vrHw.png'
+        url: love
     },
     {
         path: '/LocalorDown',
         name: '本地与下载',
-        url: 'https://124.220.52.97:8888/down/5Qjj6nFMFveC.png'
+        url: down
     },
     {
         path: '/lately',
         name: '最近播放',
-        url: 'https://124.220.52.97:8888/down/hySYzu6x8Jrs.png'
+        url: lately
     },
     {
         path: '/Clouddisk',
         name: '我的音乐云盘',
-        url: 'https://124.220.52.97:8888/down/i5kdDV1jip8S.png'
+        url: Clouddisk
     },
     {
         path: '/Rstoresame',
         name: '我的播客',
-        url: 'https://124.220.52.97:8888/down/jZBO2XWGdJY7.png'
+        url: broadcast
     },
     {
         path: '/Collect',
         name: '我的收藏',
-        url: 'https://124.220.52.97:8888/down/eo3FrdfqdoRe.png'
+        url: Collect
     },
 ]
