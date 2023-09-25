@@ -4,6 +4,7 @@ import List from '/src/components/PlaySongList.vue'
 import Taps from '/src/components/Taps.vue'
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
+import {getListDetails} from '/src/request/api/findmusic/index.js'
 
 const route = useRoute()
 const column = ref([
@@ -53,7 +54,9 @@ const Tap = ref([
 const tabledata = ref([])
 
 onMounted(() => {
-
+  getListDetails({id: route.query.id}).then(res => {
+    tabledata.value = res?.data?.playlist?.tracks
+  })
 })
 
 function onMenu(val) {

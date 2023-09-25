@@ -1,5 +1,5 @@
 <script setup>
-import {ref, defineProps} from 'vue';
+import {ref, defineProps, onMounted} from 'vue';
 import {usePlay} from "/src/stores/play.js";
 
 const UsePlay = usePlay()
@@ -21,6 +21,9 @@ const props = defineProps({
     default: .5
   }
 })
+onMounted(() => {
+  console.log(props, 'props')
+})
 // 把传入的毫秒数转换为分秒
 const formatTime = (time) => {
   const minute = Math.floor(time / 1000 / 60);
@@ -28,8 +31,8 @@ const formatTime = (time) => {
   return `${minute}:${second < 10 ? '0' + second : second}`;
 }
 
-function play(message, item) {
-  UsePlay.globalPlay = message
+function play(item) {
+  UsePlay.globalPlay = item
   let set = new Set(UsePlay.playAll)
   set.add(item)
   UsePlay.playAll = [...set]
@@ -48,7 +51,7 @@ function play(message, item) {
     <tr v-for="(item,index) in props.tabledata" :key="index"
         :class="{ 'tr-hover': true }"
         :style="`background-color:${index % 2 === 0 ? '#ffffff' : '#fafafa'}`"
-        @click="play(item.message,item)"
+        @click="play(item)"
     >
       <td :style="{paddingLeft:`${paddingLeftNum}vw`}">
         <div :style="{width:`${props.column[0].width}`}" class="text">
@@ -58,21 +61,22 @@ function play(message, item) {
       <td v-if="item.name">
         <div :style="{width:`${props.column[1].width}`}" class="text">
           {{ item.name }}
+          <span v-if="item.fee===1" class="viptips">VIP</span>
         </div>
       </td>
-      <td v-if="item.singer">
+      <td v-if="item?.ar[0]?.name">
         <div :style="{width:`${props.column[2].width}`}" class="text">
-          {{ item.singer }}
+          {{ item?.ar[0]?.name }}
         </div>
       </td>
-      <td v-if="item.album">
+      <td v-if="item.al?.name">
         <div :style="{width:`${props.column[3].width}`}" class="text">
-          {{ item.album }}
+          {{ item.al?.name }}
         </div>
       </td>
-      <td v-if="item.time">
+      <td v-if="item?.dt">
         <div :style="{width:`${props.column[4].width}`}" class="text">
-          {{ formatTime(item.time) }}
+          {{ formatTime(item?.dt) }}
         </div>
       </td>
     </tr>
@@ -116,4 +120,10 @@ td {
   //text-overflow: ellipsis; /* 显示省略号 */
 }
 
+.viptips {
+  font-size: 16px;
+  color: red;
+  font-weight: 600;
+  font-style: italic;
+}
 </style>

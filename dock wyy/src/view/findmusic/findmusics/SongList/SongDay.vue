@@ -39,21 +39,22 @@ const tabledata = ref([])
 const UseColor = useGlobalbackground()
 onMounted(() => {
   getDayList().then(res => {
-    tabledata.value = res.data.data.dailySongs.map(item => ({
-      name: item.name,
-      singer: item.ar[0]?.name,
-      album: item.al?.name,
-      time: item.dt,
-      fee: item.fee,
-      message: {
-        picurl: item.al?.picUrl,
-        id: item.id,
-        name: item.name,
-        singer: item.ar[0]?.name,
-        time: item.dt,
-        fee: item.fee
-      }
-    }))
+    tabledata.value = res.data.data.dailySongs
+    // .map(item => ({
+    //   name: item.name,
+    //   singer: item.ar[0]?.name,
+    //   album: item.al?.name,
+    //   time: item.dt,
+    //   fee: item.fee,
+    //   message: {
+    //     picurl: item.al?.picUrl,
+    //     id: item.id,
+    //     name: item.name,
+    //     singer: item.ar[0]?.name,
+    //     time: item.dt,
+    //     fee: item.fee
+    //   }
+    // }))
   })
 })
 
@@ -77,17 +78,6 @@ function playAll() {
       <ButtonAll/>
       <ButtonAll color="#FFFFFF" name="收藏全部" show="true" url="/src/assets/findmusic/collect.png"/>
     </div>
-
-    <!--    <div class="button_container">-->
-    <!--      <div class="play_button" @click="playAll">-->
-    <!--        <img alt="播放全部" src="/src/assets/findmusic/relay.png">-->
-    <!--        播放全部-->
-    <!--      </div>-->
-    <!--      <div class="collect_button">-->
-    <!--        <img alt="收藏全部" src="/src/assets/findmusic/collect.png">-->
-    <!--        收藏全部-->
-    <!--      </div>-->
-    <!--    </div>-->
   </div>
   <List :column="column" :tabledata="tabledata"/>
 </template>

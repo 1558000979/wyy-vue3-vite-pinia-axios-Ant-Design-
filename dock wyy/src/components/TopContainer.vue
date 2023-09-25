@@ -33,7 +33,7 @@ function formatTime(time) {
     <div class="right_container">
       <div class="title">
         <div :style="{borderColor:useColor.globalbackground,color:useColor.globalbackground}" class="tips">歌单</div>
-        <h2>{{ message?.name }}</h2>
+        <div>{{ message?.name }}</div>
       </div>
       <div class="author">
         <img :src="message?.creator?.avatarUrl" alt="">
@@ -87,7 +87,7 @@ function formatTime(time) {
 
     .title {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
 
       .tips {
         padding: 3px 10px;

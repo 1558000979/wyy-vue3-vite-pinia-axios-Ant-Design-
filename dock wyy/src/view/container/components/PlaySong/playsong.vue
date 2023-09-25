@@ -4,11 +4,13 @@
       <audio ref="Audiocontrol" :src="PlayUrl" autoplay></audio>
       <div v-show="ismessage" class="left_container">
         <div class="imgbox">
-          <img :src="Playmessage?.picurl" alt="暂无歌曲播放">
+          <img :src="Playmessage?.al?.picUrl" alt="暂无歌曲播放">
         </div>
         <div class="title">
           <div>{{ Playmessage?.name }}</div>
-          <div>{{ Playmessage?.singer }}</div>
+          <div v-if="Playmessage && Playmessage.ar && Playmessage.ar[0]">
+            {{ Playmessage.ar[0].name }}
+          </div>
         </div>
       </div>
       <div class="center_container">
@@ -55,11 +57,11 @@
         </div>
         <div class="range">
           <span v-show="ismessage" style="margin-right: 10px">{{ createtime }}</span>
-          <input :max="formatTime1(Playmessage?.time)" class="timeinput" min="0" step="1" style="cursor: pointer"
+          <input :max="formatTime1(Playmessage?.dt)" :value="updatetime" class="timeinput" min="0" step="1"
+                 style="cursor: pointer"
                  type="range"
-                 value="0"
                  @change="changetime">
-          <span v-show="ismessage">{{ formatTime(Playmessage?.time) ? formatTime(Playmessage?.time) : '' }}</span>
+          <span v-show="ismessage">{{ formatTime(Playmessage?.dt) ? formatTime(Playmessage?.dt) : '' }}</span>
         </div>
 
       </div>
@@ -103,6 +105,7 @@ const PlayorStop = ref(true) //播放暂停
 const sourceIcon = ref(2) //音频来源
 const Playmessage = ref({}) //音频信息
 const createtime = ref('00:00') //音频实时时间
+const updatetime = ref(0) //音频实时时间
 // 在这里添加你的逻辑代码
 import {useGlobalbackground} from '/src/stores/Globalbackground.js' //全局背景色
 import {usePlay} from '/src/stores/play.js' //全局播放
@@ -110,9 +113,9 @@ import {getUrl} from '/src/request/api/index.js' //获取音频地址
 
 const UsePlay = usePlay()
 const UseColor = useGlobalbackground()
+// 计时器
 // 监听UsePlay.globalPlay的变化
 watch(UsePlay, (newVal) => {
-  console.log(formatTime1(Playmessage.value.time), '当前歌曲总时间')
   if (newVal.globalPlay === {}) {
     ismessage.value = false
   } else {
@@ -138,6 +141,8 @@ onMounted(() => {
   const audio = Audiocontrol.value;
   audio.addEventListener('timeupdate', () => {
     createtime.value = formatTime(audio.currentTime * 1000)
+    // 把createtime.value转化为秒数
+    updatetime.value = Number(createtime.value.split(':')[0]) * 60 + Number(createtime.value.split(':')[1])
   })
 })
 // 把传入的毫秒数转换为分秒
@@ -177,35 +182,9 @@ function cutTone() {
 }
 
 function getUrllist(newVal) {
-  // if (newVal.globalPlay.fee === 1) {
-  //   message.info('该歌曲为VIP歌曲，仅能听片段,请登录，勿拖动进度条，无用！')
-  //   if (newVal.globalPlay === undefined) {
-  //     Playmessage.value = newVal.message
-  //     const val = {
-  //       id: Playmessage.value.id
-  //     }
-  //     getUrl(val).then(res => {
-  //       PlayUrl.value = res.data.data[0].url
-  //       PlayorStop.value = false
-  //       const audio = Audiocontrol.value
-  //       audio.volume = .2
-  //     })
-  //   } else {
-  //     Playmessage.value = newVal.globalPlay
-  //
-  //     const val = {
-  //       id: Playmessage.value.id
-  //     }
-  //     getUrl(val).then(res => {
-  //       PlayUrl.value = res.data.data[0].url
-  //       PlayorStop.value = false
-  //       const audio = Audiocontrol.value
-  //       audio.volume = .2
-  //     })
-  //   }
-  // }
+
   if (newVal.globalPlay === undefined) {
-    Playmessage.value = newVal.message
+    Playmessage.value = newVal
     const val = {
       id: Playmessage.value.id
     }
