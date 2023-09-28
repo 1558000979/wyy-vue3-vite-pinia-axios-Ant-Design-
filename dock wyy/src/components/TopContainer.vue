@@ -39,9 +39,9 @@ function formatTime(time) {
         <img :src="message?.creator?.avatarUrl" alt="">
         <a href="">{{ message?.creator?.nickname }}</a>
         <div class="info">{{ formatTime(message.createTime) }}创建</div>
-        <div class="font_12" style="margin-left: 5px">
-          <div v-html="message?.creator?.signature"></div>
-        </div>
+        <!--        <div class="font_12" style="margin-left: 5px">-->
+        <!--          <div v-html="message?.creator?.signature"></div>-->
+        <!--        </div>-->
       </div>
       <PlayButton/>
       <div class="tip">

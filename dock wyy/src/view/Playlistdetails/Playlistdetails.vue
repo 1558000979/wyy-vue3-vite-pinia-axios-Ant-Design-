@@ -2,9 +2,10 @@
 import Topdetails from '/src/components/TopContainer.vue'
 import List from '/src/components/PlaySongList.vue'
 import Taps from '/src/components/Taps.vue'
+import comment from '/src/components/comment.vue'
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
-import {getListDetails} from '/src/request/api/findmusic/index.js'
+import {getListDetails, getListDetailsdynamic} from '/src/request/api/findmusic/index.js'
 
 const route = useRoute()
 const column = ref([
@@ -52,22 +53,29 @@ const Tap = ref([
   }
 ])
 const tabledata = ref([])
-
+const onenuClick = ref(1)
 onMounted(() => {
+  // 获取歌单详情
   getListDetails({id: route.query.id}).then(res => {
     tabledata.value = res?.data?.playlist?.tracks
+  })
+  // 获取评论数
+  getListDetailsdynamic({id: route.query.id}).then(res => {
+    const tap = Tap.value
+    tap[1].num = res?.data?.commentCount
   })
 })
 
 function onMenu(val) {
-  console.log(val, 'val')
+  onenuClick.value = val
 }
 </script>
 
 <template>
   <Topdetails/>
   <Taps :Taps="Tap" @click="onMenu"/>
-  <List :column="column" :tabledata="tabledata"/>
+  <List v-show="onenuClick===1" :column="column" :tabledata="tabledata"/>
+  <comment v-show="onenuClick===2"/>
 </template>
 
 <style lang="less" scoped>

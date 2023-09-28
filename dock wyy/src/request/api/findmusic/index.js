@@ -50,3 +50,12 @@ export function getListDetails(params) {
         params
     });
 }
+
+// 歌单详情动态
+export function getListDetailsdynamic(params) {
+    return axios({
+        url: '/playlist/detail/dynamic',
+        method: 'get',
+        params
+    });
+}

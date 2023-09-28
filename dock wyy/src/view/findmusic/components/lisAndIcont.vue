@@ -54,6 +54,7 @@ function skip(val) {
     position: relative;
     margin-bottom: 1vh;
     background-position: center center;
+    background-size: 100% 100%;
     margin-right: 1vw;
 
     .count {
